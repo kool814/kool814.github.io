@@ -191,6 +191,11 @@ sm {
   text-transform: uppercase;
 }
 
+./*desc .col-lg-7 {
+  font-size: 20px;
+  text-transform: lowercase;
+}*/
+
 .container .row p.tight {
   margin-bottom: 10px;
 }
