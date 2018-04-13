@@ -133,6 +133,25 @@ a:after {
   vertical-align: middle;
 }
 
+.aboutnews {
+  background: #2c3e50;
+  padding-top: 40px;
+  padding-bottom: 50px;
+  color: white;
+  font-size: 30px;
+} 
+
+.aboutnews h5, p {
+  color: white;
+}
+
+.aboutnews i {
+  color: white;
+  font-size: 20px;
+  padding-right: 8px;
+  vertical-align: middle;
+}
+
 .footer {
   background: #2f2f2f;
   padding-top: 50px;
@@ -191,10 +210,10 @@ sm {
   text-transform: uppercase;
 }
 
-./*desc .col-lg-7 {
-  font-size: 20px;
+.desc .col-lg-7 {
+  font-size: 10px;
   text-transform: lowercase;
-}*/
+}
 
 .container .row p.tight {
   margin-bottom: 10px;
