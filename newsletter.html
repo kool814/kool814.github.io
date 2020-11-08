@@ -1,191 +1,286 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="author" content="Karthik Suresh">
-	<meta name="description" content="">
-	<title>From what I've read this week... | Karthik Suresh</title>
-	<link rel="icon" type="image/png" href="apple-touch-icon.png">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.3.0/milligram.css">
-	<link rel="stylesheet" href="https://milligram.github.io/styles/main.css">
-	<link href="milligram-1.3.0/dist/milligram.css" rel="stylesheet">
-	<link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
-	<style type="text/css">
-		#mc_embed_signup{background:white; clear:left; font:14px Raleway,Raleway,sans-serif; width:100%;}
-		/* Add your own MailChimp form style overrides in your site stylesheet or in this style block.
-			We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
-	</style>
-  </head>
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-118585449-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-  <body>
+        gtag('config', 'UA-118585449-1');
+    </script>
+    <meta charset="utf-8">
+    <meta name="author" content="Karthik Suresh">
+    <meta name="description" content="Hi, my name's Karthik Suresh.">
+    <title>Karthik Suresh</title>
+    <link rel="stylesheet" type="text/css" href="layout.css">
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="sugar-1.3.9.min.js"></script>
+    <script type="text/javascript" src="vis.js"></script>
+</head>
 
-	<main class="wrapper">
-		<section class="container" id="header">
-			<center>
-				<h3 class="title"><u><a href="newsletter.html">From what I've read this week...</a></u></h3>
-			</center>
-			<h3 class="title">About</h3>
-			<p class="description">
-				Receive my newsletter, usually once a week, with my notes on what happened in the tech world in the past week 
-				- the stories and links I saw that were interesting and why they mattered.
-			</p>
+<body>
+    <div class="navbar">
+        <a href="projects.html">Projects</a>
+        <a href="https://www.notion.so/karthiksuresh/Reading-List-21bcf8cba3c04d48a2807e07cad2b82e">Reading List</a>
+        <!-- <a href="#contact">Antilibrary</a> -->
+        <a href="newsletter.html">Writing</a>
+        <a href="index.html">Home</a>
+    </div>
 
-			<div class="row">
-				<div class="column">
-					<span class="column-demo">If you are interested you can sign up: </span>
-					<span class="column-demo">
-						<form action="https://twitter.us18.list-manage.com/subscribe/post?u=17a8fee51dde53b23da76d2dc&amp;id=03d0961a9e" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-							<div id="mc_embed_signup_scroll">
-								<!-- <label for="mce-EMAIL">Subscribe to the mailing list:</label> -->
-								<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="Email Address" required>
-								<!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-								<div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_17a8fee51dde53b23da76d2dc_03d0961a9e" tabindex="-1" value=""></div>
-								<div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
-							</div>
-						</form>
-					</span>
-				</div>
-			</div>
-			<div class="table">
-				<table>
-					<thead>
-						<tr>
-							<th>Past Issues</th>
-							<th>Date</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td><u><a href="https://mailchi.mp/5f9a46261a76/from-what-ive-read-this-week-3-karthik-suresh-328359">From What I've Read... #21</a></u></td>
-							<td>Feb 10, 2019</td>
-						</tr>
-						<tr>
-							<td><u><a href="https://mailchi.mp/84765c1b8dc6/from-what-ive-read-this-week-3-karthik-suresh-321875">From What I've Read... #20</a></u></td>
-							<td>Feb 3, 2019</td>
-						</tr>
-						<tr>
-							<td><u><a href="https://mailchi.mp/ea9477377744/from-what-ive-read-this-week-3-karthik-suresh-170319">From What I've Read... #16</a></u></td>
-							<td>Aug 14, 2018</td>
-						</tr>
-						<tr>
-							<td><u><a href="https://mailchi.mp/0a6642770772/from-what-ive-read-this-week-3-karthik-suresh-160651">From What I've Read... #15</a></u></td>
-							<td>Aug 5, 2018</td>
-						</tr>
-						<tr>
-							<td> <u><a href="https://mailchi.mp/715eb5e29228/from-what-ive-read-this-week-3-karthik-suresh-150151">From What I've Read... #14</a></u></td>
-							<td>July 29, 2018</td>
-						</tr>
-						<tr>
-							<td> <u><a href="https://mailchi.mp/314f65416f7f/from-what-ive-read-this-week-3-karthik-suresh-142707">From What I've Read... #13</a></u></td>
-							<td>July 24, 2018</td>
-						</tr>
-						<tr>
-							<td> <u><a href="https://mailchi.mp/87fe7bf50e44/from-what-ive-read-this-week-3-karthik-suresh-128943">From What I've Read... #12</a></u></td>
-							<td>July 16, 2018</td>
-						</tr>
-						<tr>
-							<td> <u><a href="https://mailchi.mp/2194b7ec6219/from-what-ive-read-this-week-3-karthik-suresh-106495">From What I've Read... #11</a></u></td>
-							<td>July 2, 2018</td>
-						</tr>
-						<tr>
-							<td> <u><a href="https://mailchi.mp/5ff63973fb5a/from-what-ive-read-this-week-3-karthik-suresh-94243">From What I've Read... #10</a></u></td>
-							<td>June 25, 2018</td>
-						</tr>
-						<tr>
-							<td> <u><a href="https://us18.campaign-archive.com/?u=17a8fee51dde53b23da76d2dc&id=98584d5930">From What I've Read... #9</a></u></td>
-							<td>June 18, 2018</td>
-						</tr>
-						<tr>
-							<td> <u><a href="https://mailchi.mp/7fac1bfecfa9/from-what-ive-read-this-week-3-karthik-suresh-70759">From What I've Read... #8</a></u></t>
-							<td>June 10, 2018</td>
-						</tr>
-						<tr>
-							<td> <u><a href="https://mailchi.mp/5eb1f28641ef/from-what-ive-read-this-week-3-karthik-suresh-62207">From What I've Read... #7</a></u></t>
-							<td>June 4, 2018</td>
-						</tr>
-						<tr>
-							<td> <u><a href="https://mailchi.mp/033caf65fd10/from-what-ive-read-this-week-3-karthik-suresh-52367">From What I've Read... #6</a></u></t>
-							<td>May 28, 2018</td>
-						</tr>
-						<tr>
-							<td> <u><a href="https://mailchi.mp/022349df11c1/from-what-ive-read-this-week-3-karthik-suresh-34351">From What I've Read... #5</a></u></t>
-							<td>May 14, 2018</td>
-						</tr>
-						<tr>
-							<td> <u><a href="https://mailchi.mp/21fa4e76ecd0/from-what-ive-read-this-week-3-karthik-suresh-29455">From What I've Read... #4</a></u></t>
-							<td>May 9, 2018</td>
-						</tr>	
-						<tr>
-							<td> <u><a href="https://mailchi.mp/7bc20159e28a/from-what-ive-read-this-week-3-karthik-suresh">From What I've Read... #3</a></u></t>
-							<td>April 29, 2018</td>
-						</tr>
-						<tr>
-							<td><u><a href="https://mailchi.mp/83d0a1522d59/from-what-ive-read-this-week-2-karthik-suresh">From What I've Read... #2</a></u> </t>
-							<td>April 22, 2018</td>
-						</tr>
-						<p>
-							<td><u> <a href="https://mailchi.mp/8ca299a6bfaa/from-what-ive-read-this-weekkarthik-suresh">From What I've Read... #1</a></u></t>
-							<td>April 8, 2018</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<br>
-			<br>
+    <div class="sidebar">
+        <div class="rotate_sidebar">
+            <p class="logo">
+                Karthik Suresh
+            </p>
+            <div class="social-icon-container">
+                <a href="https://github.com/kool814">
+                    <svg class="social-icon-image" width="14" height="14" viewBox="0 0 14 14" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fillrule="evenodd" cliprule="evenodd"
+                            d="M7 0C3.1325.0.0 3.21173.0 7.17706.0 10.3529 2.00375 13.0353 4.78625 13.9863 5.13625 14.0491 5.2675 13.8338 5.2675 13.6454 5.2675 13.4749 5.25875 12.9097 5.25875 12.3087 3.5 12.6406 3.045 11.8691 2.905 11.4653 2.82625 11.259 2.485 10.622 2.1875 10.4516 1.9425 10.317 1.5925 9.98508 2.17875 9.97611 2.73 9.96714 3.12375 10.4964 3.255 10.7118 3.885 11.7973 4.89125 11.4923 5.29375 11.3039 5.355 10.8374 5.53875 10.5234 5.74 10.3439 4.1825 10.1645 2.555 9.54549 2.555 6.80026 2.555 6.01976 2.82625 5.37382 3.2725 4.87143 3.2025 4.692 2.9575 3.95635 3.3425 2.96951 3.3425 2.96951 3.92875 2.78111 5.2675 3.70516 5.8275 3.54367 6.4225 3.46293 7.0175 3.46293S8.2075 3.54367 8.7675 3.70516C10.1063 2.77214 10.6925 2.96951 10.6925 2.96951 11.0775 3.95635 10.8325 4.692 10.7625 4.87143 11.2087 5.37382 11.48 6.01079 11.48 6.80026 11.48 9.55446 9.84375 10.1645 8.28625 10.3439 8.54 10.5682 8.75875 10.9988 8.75875 11.6717 8.75875 12.6316 8.75 13.4032 8.75 13.6454 8.75 13.8338 8.88125 14.0581 9.23125 13.9863 11.9963 13.0353 14 10.3439 14 7.17706 14 3.21173 10.8675.0 7 0z"
+                            fill="#73737d">
+                        </path>
+                    </svg>
+                </a>
+                <a href="https://www.instagram.com/ksuresh814"><svg class="social-icon-image" width="13" height="13"
+                        viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fillrule="evenodd" cliprule="evenodd"
+                            d="M-305176e-10 3.97163C-305176e-10 1.77803 1.77824-244141e-9 3.97184-244141e-9H9.0281C11.2217-244141e-9 13 1.77802 13 3.97163V9.02788C13 11.2215 11.2217 12.9998 9.0281 12.9998H3.97184C1.77824 12.9998-305176e-10 11.2215-305176e-10 9.02789V3.97163zM3.97184 1.281C2.48585 1.281 1.28122 2.48564 1.28122 3.97163V9.02789C1.28122 10.5139 2.48585 11.7185 3.97184 11.7185H9.0281C10.5141 11.7185 11.7187 10.5139 11.7187 9.02788V3.97163C11.7187 2.48564 10.5141 1.281 9.0281 1.281H3.97184z"
+                            fill="#73737d"></path>
+                        <path fillrule="evenodd" cliprule="evenodd"
+                            d="M3.07483 6.55115C3.07483 4.64454 4.61242 3.09253 6.51702 3.09253 8.42162 3.09253 9.95921 4.64454 9.95921 6.55115S8.42162 10.0098 6.51702 10.0098C4.61242 10.0098 3.07483 8.45776 3.07483 6.55115zM6.51702 4.37378C5.32709 4.37378 4.35608 5.34508 4.35608 6.55115 4.35608 7.75722 5.32709 8.72853 6.51702 8.72853 7.70695 8.72853 8.67796 7.75722 8.67796 6.55115 8.67796 5.34508 7.70695 4.37378 6.51702 4.37378z"
+                            fill="#73737d"></path>
+                        <path fillrule="evenodd" cliprule="evenodd"
+                            d="M9.95062 3.87075C10.4035 3.87075 10.7706 3.50149 10.7706 3.04597 10.7706 2.59046 10.4035 2.22119 9.95062 2.22119 9.49776 2.22119 9.13065 2.59046 9.13065 3.04597 9.13065 3.50149 9.49776 3.87075 9.95062 3.87075z"
+                            fill="#73737d"></path>
+                    </svg></a>
+                <a href="https://linkedin.com/in/karthiksuresh814"><svg class="social-icon-image" width="14" height="14"
+                        viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fillrule="evenodd" cliprule="evenodd"
+                            d="M3.59615 13.125H.871552V4.36523H3.59615V13.125zM2.24847 3.16406C1.81878 3.16406 1.44769 3.00781 1.13519 2.69531.822692 2.38281.666443 2.01171.666443 1.58203.666443 1.15234.822692.781248 1.13519.468749 1.44769.156249 1.81878.0 2.24847.0S3.04925.156249 3.36175.468749C3.67425.781248 3.8305 1.15234 3.8305 1.58203 3.8305 2.01171 3.67425 2.38281 3.36175 2.69531S2.67816 3.16406 2.24847 3.16406zM13.7915 13.125H11.0669V8.84765C11.0669 8.14452 11.0083 7.63671 10.8911 7.32421 10.6763 6.79687 10.2563 6.5332 9.63134 6.5332 9.00634 6.5332 8.56689 6.76757 8.31298 7.23632 8.11767 7.58788 8.02001 8.10546 8.02001 8.78905V13.125H5.32471V4.36523H7.93212V5.5664H7.96142C8.15673 5.17578 8.46923 4.85351 8.89892 4.59961 9.36767 4.28711 9.91454 4.13086 10.5395 4.13086 11.8091 4.13086 12.6977 4.53125 13.2055 5.33203 13.5962 5.97656 13.7915 6.97265 13.7915 8.3203V13.125z"
+                            fill="#73737d"></path>
+                    </svg></a>
+                <a href="https://open.spotify.com/user/suresh98?si=AqGR1xPuR7eOlshDtoNyug"><svg
+                        class="social-icon-image" width="15" height="14" viewBox="0 0 168 168" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill="#73737d"
+                            d="m83.996.277c-46.249.0-83.743 37.493-83.743 83.742.0 46.251 37.494 83.741 83.743 83.741 46.254.0 83.744-37.49 83.744-83.741.0-46.246-37.49-83.738-83.745-83.738l.001-.004zm38.404 120.78c-1.5 2.46-4.72 3.24-7.18 1.73-19.662-12.01-44.414-14.73-73.564-8.07-2.809.64-5.609-1.12-6.249-3.93-.643-2.81 1.11-5.61 3.926-6.25 31.9-7.291 59.263-4.15 81.337 9.34 2.46 1.51 3.24 4.72 1.73 7.18zm10.25-22.805c-1.89 3.075-5.91 4.045-8.98 2.155-22.51-13.839-56.823-17.846-83.448-9.764-3.453 1.043-7.1-.903-8.148-4.35-1.04-3.453.907-7.093 4.354-8.143 30.413-9.228 68.222-4.758 94.072 11.127 3.07 1.89 4.04 5.91 2.15 8.976v-.001zm.88-23.744c-26.99-16.031-71.52-17.505-97.289-9.684-4.138 1.255-8.514-1.081-9.768-5.219-1.254-4.14 1.08-8.513 5.221-9.771 29.581-8.98 78.756-7.245 109.83 11.202 3.73 2.209 4.95 7.016 2.74 10.733-2.2 3.722-7.02 4.949-10.73 2.739z">
+                        </path>
+                    </svg></a>
+                <a href="https://twitter.com/ThisIsKarthik_"><svg class="social-icon-image" width="16" height="13"
+                        viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fillrule="evenodd" cliprule="evenodd"
+                            d="M14.0658 2.34438C14.7013 1.96349 15.1892 1.3604 15.419.641811 14.8244.994439 14.1658 1.25056 13.4648 1.3886 12.9034.7905 12.1036.416748 11.2185.416748 9.51888.416748 8.14096 1.79461 8.14096 3.49411 8.14096 3.7353 8.16822 3.97019 8.22068 4.19542 5.66301 4.06708 3.39543 2.84191 1.8776.980064 1.6127 1.43458 1.46094 1.96322 1.46094 2.52719 1.46094 3.59485 2.00428 4.5368 2.83003 5.08865 2.32553 5.07268 1.85104 4.93425 1.43608 4.70376 1.43586 4.71659 1.43586 4.72949 1.43586 4.74244 1.43586 6.23349 2.49666 7.47732 3.90448 7.75999 3.64622 7.83033 3.37436 7.86792 3.09366 7.86792 2.89537 7.86792 2.70257 7.84866 2.51471 7.81272 2.90629 9.03537 4.0428 9.92509 5.38945 9.94994 4.33623 10.7753 3.00928 11.2673 1.56749 11.2673 1.31911 11.2673 1.07413 11.2528.833374 11.2243 2.19527 12.0975 3.81291 12.6069 5.55081 12.6069 11.2113 12.6069 14.3067 7.91763 14.3067 3.85096 14.3067 3.71753 14.3037 3.5848 14.2978 3.45285 14.899 3.01896 15.4208 2.47694 15.8334 1.8598 15.2815 2.10456 14.6884 2.26998 14.0658 2.34438z"
+                            fill="#73737d"></path>
+                    </svg></a>
+            </div>
+        </div>
+    </div>
 
-			<div class="column">
-				<h3 class="title">Standalone Articles</h3>
-				<table>
-					<thead>
-						<tr>
-							<th>Articles</th>
-							<th>Date</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td><u><a href="https://medium.com/@karthik.s814/framework-for-evaluating-seed-stage-startups-78c604f1f3eb"">Framework for evaluating Seed-Stage startups</a></u></td>
-							<td>July 28, 2018</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</section>
+    <div id="content">
+        <h1>Writing.</h1>
+        <p id="text">
+            I love to write about topics that interest me such as startups, software, investing, ethics, heuristics, and
+            history. I'm also interested in the intersection of software, startups, and investing and how this
+            intersection can transform antiquated
+            industries such as finance and education.<br><br></p>
 
-		<footer class="footer">
-			<section class="container">
-				<div class="column">
-					<span class="column-demo">To learn more  
-					<u><a href="index.html">about me</a></u>
-				</p>
-				<nav class="nav">
-					<a class ="link" href="Karthik Suresh Resume(1)copy.pdf" rel="noopener" target="_blank" title="Resume">
-						<img height="20" width="20" src="https://cdn4.iconfinder.com/data/icons/business-thin-line-vector-set/512/paperwork-512.png" />
-					</a>
-					<a class ="link" href="mailto:karthik.s814@gmail.com" rel="noopener" target="_blank" title="Email">
-						<img height="20" width="20" src="https://unpkg.com/simple-icons@latest/icons/gmail.svg" />
-					</a>
-					<a class ="link" href="https://twitter.com/ThisIsKarthik_" rel="noopener" target="_blank" title="Karthik on Twitter">
-						<img height="20" width="20" src="data:image/png;base64,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" />
-					</a>
+        <div id="graphHolder">
+            <button class="collapsible"> Articles</button>
+            <div class="content">
+                <div class="table">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td><u><a
+                                            href="https://medium.com/@karthik.s814/unpacking-the-5-3b-acquisition-of-plaid-d296e73e48e8">Unpacking
+                                            the $5.3B acquisition of Plaid</a></u></td>
+                                <td>Jan 21, 2020</td>
+                            </tr>
+                            <tr>
+                                <td><u><a
+                                            href="https://medium.com/@karthik.s814/framework-for-evaluating-seed-stage-startups-78c604f1f3eb">Framework
+                                            for evaluating Seed-Stage startups</a></u></td>
+                                <td>July 28, 2018</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <br>
+            <br>
 
-					<a class ="link" href="https://github.com/kool814" rel="noopener" target="_blank" title="Karthik on Github">
-						<img height="20" width="20" src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" />
-					</a>
+            <button class="collapsible">Newsletter</button>
+            <div class="content">
+                <div class="table">
+                    <table>
+                        <!-- <thead>
+                        <tr>
+                            <th>Past Issues</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead> -->
+                        <tbody>
+                            <tr>
+                                <td><u><a
+                                            href="https://mailchi.mp/5f9a46261a76/from-what-ive-read-this-week-3-karthik-suresh-328359">From
+                                            what I've read this week... #21</a></u></td>
+                                <td id="date">Feb 10, 2019</td>
+                            </tr>
+                            <tr>
+                                <td><u><a
+                                            href="https://mailchi.mp/84765c1b8dc6/from-what-ive-read-this-week-3-karthik-suresh-321875">From
+                                            what I've read this week... #20</a></u></td>
+                                <td>Feb 3, 2019</td>
+                            </tr>
+                            <tr>
+                                <td><u><a
+                                            href="https://mailchi.mp/ea9477377744/from-what-ive-read-this-week-3-karthik-suresh-170319">From
+                                            what I've read this week... #16</a></u></td>
+                                <td>Aug 14, 2018</td>
+                            </tr>
+                            <tr>
+                                <td><u><a
+                                            href="https://mailchi.mp/0a6642770772/from-what-ive-read-this-week-3-karthik-suresh-160651">From
+                                            what I've read this week... #15</a></u></td>
+                                <td>Aug 5, 2018</td>
+                            </tr>
+                            <tr>
+                                <td> <u><a
+                                            href="https://mailchi.mp/715eb5e29228/from-what-ive-read-this-week-3-karthik-suresh-150151">From
+                                            what I've read this week... #14</a></u></td>
+                                <td>July 29, 2018</td>
+                            </tr>
+                            <tr>
+                                <td> <u><a
+                                            href="https://mailchi.mp/314f65416f7f/from-what-ive-read-this-week-3-karthik-suresh-142707">From
+                                            what I've read this week... #13</a></u></td>
+                                <td>July 24, 2018</td>
+                            </tr>
+                            <tr>
+                                <td> <u><a
+                                            href="https://mailchi.mp/87fe7bf50e44/from-what-ive-read-this-week-3-karthik-suresh-128943">From
+                                            what I've read this week... #12</a></u></td>
+                                <td>July 16, 2018</td>
+                            </tr>
+                            <tr>
+                                <td> <u><a
+                                            href="https://mailchi.mp/2194b7ec6219/from-what-ive-read-this-week-3-karthik-suresh-106495">From
+                                            what I've read this week... #11</a></u></td>
+                                <td>July 2, 2018</td>
+                            </tr>
+                            <tr>
+                                <td> <u><a
+                                            href="https://mailchi.mp/5ff63973fb5a/from-what-ive-read-this-week-3-karthik-suresh-94243">From
+                                            what I've read this week... #10</a></u></td>
+                                <td>June 25, 2018</td>
+                            </tr>
+                            <tr>
+                                <td> <u><a
+                                            href="https://us18.campaign-archive.com/?u=17a8fee51dde53b23da76d2dc&id=98584d5930">From
+                                            what I've read this week... #9</a></u></td>
+                                <td>June 18, 2018</td>
+                            </tr>
+                            <tr>
+                                <td> <u><a
+                                            href="https://mailchi.mp/7fac1bfecfa9/from-what-ive-read-this-week-3-karthik-suresh-70759">From
+                                            what I've read this week... #8</a></u></td>
+                                <td>June 10, 2018</td>
+                            </tr>
+                            <tr>
+                                <td> <u><a
+                                            href="https://mailchi.mp/5eb1f28641ef/from-what-ive-read-this-week-3-karthik-suresh-62207">From
+                                            what I've read this week... #7</a></u></td>
+                                <td>June 4, 2018</td>
+                            </tr>
+                            <tr>
+                                <td> <u><a
+                                            href="https://mailchi.mp/033caf65fd10/from-what-ive-read-this-week-3-karthik-suresh-52367">From
+                                            what I've read this week... #6</a></u></td>
+                                <td>May 28, 2018</td>
+                            </tr>
+                            <tr>
+                                <td> <u><a
+                                            href="https://mailchi.mp/022349df11c1/from-what-ive-read-this-week-3-karthik-suresh-34351">From
+                                            what I've read this week... #5</a></u></td>
+                                <td>May 14, 2018</td>
+                            </tr>
+                            <tr>
+                                <td> <u><a
+                                            href="https://mailchi.mp/21fa4e76ecd0/from-what-ive-read-this-week-3-karthik-suresh-29455">From
+                                            what I've read this week... #4</a></u></td>
+                                <td>May 9, 2018</td>
+                            </tr>
+                            <tr>
+                                <td> <u><a
+                                            href="https://mailchi.mp/7bc20159e28a/from-what-ive-read-this-week-3-karthik-suresh">From
+                                            what I've read this week... #3</a></u></td>
+                                <td>April 29, 2018</td>
+                            </tr>
+                            <tr>
+                                <td><u><a
+                                            href="https://mailchi.mp/83d0a1522d59/from-what-ive-read-this-week-2-karthik-suresh">From
+                                            what I've read this week... #2</a></u> </td>
+                                <td>April 22, 2018</td>
+                            </tr>
+                            <p>
+                                <td><u> <a
+                                            href="https://mailchi.mp/8ca299a6bfaa/from-what-ive-read-this-weekkarthik-suresh">From
+                                            what I've read this week... #1</a></u></td>
+                                <td>April 8, 2018</td>
+                                </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
 
-					<a class ="link" href="https://medium.com/@karthik.s814" rel="noopener" target="_blank" title="Medium icon">
-						<img height="20" width="20" src="https://cdns.iconmonstr.com/wp-content/assets/preview/2018/240/iconmonstr-medium-1.png" />
-					</a>
+        <div id="subscribe">
+            <form
+                action="https://twitter.us18.list-manage.com/subscribe/post?u=17a8fee51dde53b23da76d2dc&amp;id=03d0961a9e"
+                method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate"
+                target="_blank" novalidate>
+                <span id="mc_embed_signup_scroll">
+                    <div id="subscribe_text">
+                        <label for="mce-EMAIL">Subscribe to the mailing list:</label>
+                        <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL"
+                            placeholder="Email Address" required>
+                    </div>
+                    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                    <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                        <input type="text" name="b_17a8fee51dde53b23da76d2dc_03d0961a9e" tabindex="-1" value="">
+                    </div>
+                    <div class="clear">
+                        <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"
+                            class="button">
+                    </div>
+                </span>
+            </form>
+        </div>
 
-					<a class ="link" href="https://linkedin.com/in/karthiksuresh814/" rel="noopener" target="_blank" title="Karthik on Linkedin">
-						<img height="20" width="20" src="https://image.flaticon.com/icons/svg/34/34227.svg" />
-					</a>
-				</nav>
-			</section>
-		</footer>
-	</main>
-  </body>
-</html>
+        <!-- <div id="footer">
+            <div id="footer_line"></div>
+            Thanks to Bezos and Northern VA for letting me chill on this <a
+                href="https://web.archive.org/web/20180916231515/http://aws.amazon.com/s3">S3</a> bucket.
+            <br>
+        </div> -->
+
+
+        <script>
+            var coll = document.getElementsByClassName("collapsible");
+            var i;
+
+            for (i = 0; i < coll.length; i++) {
+                coll[i].addEventListener("click", function () {
+                    this.classList.toggle("active");
+                    var content = this.nextElementSibling;
+                    if (content.style.maxHeight) {
+                        content.style.maxHeight = null;
+                    } else {
+                        content.style.maxHeight = content.scrollHeight + "px";
+                    }
+                });
+            }
+        </script>
+</body>
