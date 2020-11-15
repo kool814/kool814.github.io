@@ -1,1 +1,1 @@
-A website for my resume and my weekly newsletter.
+A simple website - http://karthiksuresh.me/
