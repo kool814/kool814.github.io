@@ -9,7 +9,7 @@ var drawMap = function () {
     scale.addTo(map);
 
     var attrOptions = {
-        prefix: 'Made by <a href="http://karthiksuresh.me/">Karthik Suresh</a> | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        prefix: 'Made by <a href="https://karthiksuresh.me/">Karthik Suresh</a> | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     };
     var attr = L.control.attribution(attrOptions);
     attr.addTo(map);
