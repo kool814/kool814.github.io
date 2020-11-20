@@ -16,7 +16,7 @@ var drawMap = function () {
 };
 
 var linkTag = function (a, e) {
-    return "<a href='" + ("https://en.wikipedia.org/wiki/" + encodeURIComponent(a).replace(/[!'()*]/g, escape)) + "' target='_blank'>" + e + "</a>"
+    return "<div class='popup-header'><a href='" + ("https://en.wikipedia.org/wiki/" + encodeURIComponent(a).replace(/[!'()*]/g, escape)) + "' target='_blank'>" + e + "</a></div>"
 };
 
 var subheaderTag = function (a) {
