@@ -1,7 +1,11 @@
 .popup-subheader {
     text-align: center;
-	font-size: 12px;
-	padding-top: 8px;
+    font-size: 12px;
+    padding-top: 8px;
+}
+
+.popup-header {
+    text-align: center;
 }
 
 html, body, #mapid {
@@ -9,7 +13,7 @@ html, body, #mapid {
     width: 100%;
 }
 
-body{ 
+body {
     display: flex;
     flex-direction: column;
     padding: 0;
