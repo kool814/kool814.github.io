@@ -305,6 +305,10 @@ div#articleHolder {
     padding-top: 40px;
 }
 
+li {
+    margin: 15px 0;
+}
+
 /* label{
     padding-top: 50px;
 } */

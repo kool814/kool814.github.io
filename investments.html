@@ -22,10 +22,8 @@
 
 <body>
     <div class="navbar">
-        <a href="musings.html">Musings</a>
+        <a href="investments.html">Investments</a>
         <a href="projects.html">Projects</a>
-        <a href="https://www.notion.so/karthiksuresh/Reading-List-21bcf8cba3c04d48a2807e07cad2b82e">Reading List</a>
-        <!-- <a href="#contact">Antilibrary</a> -->
         <a href="newsletter.html">Writing</a>
         <a href="about.html">About</a>
         <a href="index.html">Home</a>
@@ -82,10 +80,107 @@
     </div>
 
     <div id="content">
-        <h1>Musings.</h1>
-        <p id="text">Coming Soon.
+        <h1>Investments.</h1>
+        <p id="aboutText">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I am occasionally lucky to be invited to join a founder on their
+            journey. I generally invest in early stage companies focused on fintech, education, biotech, and enterprise software. I'm a small part of the cap table and any success is squarely due to the work and
+            tenacity of the founders.<br><br>
         </p>
+
+        <!-- <p id="aboutText">
+            <b>Why I invest:</b><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Money is ultimately a voting mechanism – when we spend it, we encourage the existence of the thing we spend it on. There are many core problems in our world 
+
+            1. Everyone is driven by a desire to leave a mark on our world – whether it's in the form of building a company, newsletter, charity, flower shop, etc. we all seek to create.
+            2. When we can't invest our time in something that we believe in, we can invest our capital to  
+
+
+            - Everyone will aspire to be a **creator**. We are all human and have finite lives. We all seek to leave our mark on the world. This can take the form of building a company, a fund, a charity, a newsletter, a podcast, a flower shop, or many other things. But ultimately we are all driven by a desire to serve someone else with something of our own creation.
+            - Everyone will aspire to be an **investor**. When we can't invest our time in something that we believe in (likely tied up by the point above), we can still invest our capital. Money is ultimately a voting mechanism - when we spend it, we encourage the existence of the thing we spend it on.
+        </p> -->
+
+        <div id="articleHolder">
+            <button class="collapsible active">Investments</button>
+            <div class="content" style="max-height: 800px;">
+                <div class="table">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td><u><a href="https://cover.com/">Cover</a></u></td>
+                                <td>B2C Fintech</td>
+                                <td>Series B</td>
+                            </tr>
+                            <tr>
+                                <td><u><a href="https://www.naborly.com/">Naborly</a></u></td>
+                                <td>B2C Fintech</td>
+                                <td>Seed</td>
+                                <!-- <td>Y Combinator<br>Susa Ventures<br>Better Tomorrow Ventures</td> -->
+                            </tr>
+                            <tr>
+                                <td><u><a href="https://www.wiseapp.live/">
+                                    Wise Leap Technologies</a></u></td>
+                                <td>EdTech</td>
+                                <td>Seed</td>
+                            </tr>
+                            <tr>
+                                <td><u><a href="http://www.public.com/">
+                                    Public.com</a></u></td>
+                                <td>B2C Fintech</td>
+                                <td>Series C</td>
+                            </tr>
+                            <tr>
+                                <td><u><a href="https://drink.haus/">
+                                    Haus</a></u></td>
+                                <td>Food/Bev</td>
+                                <td>Series A</td>
+                            </tr>
+                            <tr>
+                                <td><u><a href="https://runway.com/">
+                                    Runway</a></u></td>
+                                <td>B2B Fintech</td>
+                                <td>Series A</td>
+                            </tr>
+                            <tr>
+                                <td><u><a href="http://payhippo.ng/">
+                                    PayHippo</a></u></td>
+                                <td>B2B Fintech</td>
+                                <td>Seed</td>
+                            </tr>
+                            <tr>
+                                <td>Stealth – BioTech</td>
+                                <td>HardTech</td>
+                                <td>Seed</td>
+                            </tr>
+                            <tr>
+                                <td>Stealth – Insurtech</td>
+                                <td>B2B Fintech</td>
+                                <td>Seed</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
+    <div id="subscribe"></div>
+
+    <script>
+        var coll = document.getElementsByClassName("collapsible");
+        console.log("\n\n coll:", coll);
+        var i;
+
+        for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                } else {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                }
+            });
+        }
+    </script>
 
 
     <!-- <div id="footer_line"></div>
