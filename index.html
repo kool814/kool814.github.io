@@ -442,8 +442,10 @@
         rightColumnItems.forEach((item) => item.classList.remove("active"));
         rightColumnItems[index].classList.add("active");
 
-        // Remove this line to prevent changing the background color on click
-        // fullWidthColumn.style.backgroundColor = clickColor;
+        // Scroll to the full-width column on mobile
+        if (window.innerWidth <= 768) {
+          fullWidthColumn.scrollIntoView({ behavior: "smooth" });
+        }
       }
 
       function hideFullWidthColumn() {
@@ -456,6 +458,11 @@
         rightColumnItems.forEach((item) => item.classList.remove("active"));
         fullWidthColumn.style.backgroundColor = "";
         currentHoverColor = null;
+
+        // Scroll back to the top on mobile
+        if (window.innerWidth <= 768) {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
       }
 
       rightColumnItems.forEach((item, index) => {
