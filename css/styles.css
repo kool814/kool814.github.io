@@ -94,10 +94,6 @@ ul li {
   transition: background-color 0.3s ease;
 }
 
-/* .right-column li:hover::before {
-  background-color: rgba(0, 0, 0, 0.1);
-} */
-
 /* Full-width column content */
 .full-width-column .content {
   display: none;
@@ -159,4 +155,72 @@ td {
 
 #ks-button:hover {
   opacity: 0.7;
+}
+
+/* Media query for mobile devices */
+@media screen and (max-width: 768px) {
+  body {
+    overflow: auto;
+    font-size: 12px; /* Set the base font size to 12px for mobile */
+  }
+
+  .content-wrapper {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+  }
+
+  .left-column,
+  .middle-column {
+    display: none;
+  }
+
+  .right-column,
+  .full-width-column {
+    height: 100%;
+    overflow-y: auto;
+  }
+
+  .right-column {
+    flex: 1;
+    max-width: 20%;
+    border-right: 1px solid #e0e0e0;
+    padding: 1rem 0.5rem;
+  }
+
+  .full-width-column {
+    flex: 3;
+    max-width: 80%;
+    padding: 1rem;
+  }
+
+  .right-column ul {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .right-column li {
+    margin: 0.5rem 0;
+    font-size: 1em; /* Changed from 0.9em to 1em to use the base 12px font size */
+  }
+
+  /* Adjust the full-width column */
+  .full-width-column {
+    margin-top: 0;
+  }
+
+  /* Make the KS button visible on mobile */
+  #ks-button {
+    display: block;
+    position: fixed;
+    top: 0.5rem;
+    left: 0.5rem;
+    z-index: 20;
+    font-size: 1em; /* Changed from 0.9em to 1em to use the base 12px font size */
+  }
+
+  /* Hide inactive content */
+  .full-width-column .content:not(.active) {
+    display: none;
+  }
 }
