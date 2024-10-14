@@ -29,46 +29,30 @@
         </div>
         <div class="middle-column">
           <ul>
-            <li data-index="0">Meet</li>
-            <li data-index="1">View my</li>
-            <li data-index="2">Read my</li>
-            <li data-index="3">What is the</li>
-            <li data-index="4">Interesting</li>
-            <li data-index="5">Let's</li>
+            <li data-index="0">"MEET"</li>
+            <li data-index="1">"VIEW MY"</li>
+            <li data-index="2">"READ MY"</li>
+            <li data-index="3">"WHAT IS THE"</li>
+            <li data-index="4">"INTERESTING"</li>
+            <li data-index="5">"LET'S"</li>
           </ul>
         </div>
         <div class="right-column">
           <ul>
-            <li data-index="0">Karthik Suresh</li>
-            <li data-index="1">Investments</li>
-            <li data-index="2">Thoughts</li>
-            <li data-index="3">Mission</li>
-            <li data-index="4">Quotes</li>
-            <li data-index="5">Work Together</li>
+            <li data-index="0">"KARTHIK SURESH"</li>
+            <li data-index="1">"INVESTMENTS"</li>
+            <li data-index="2">"THOUGHTS"</li>
+            <li data-index="3">"MISSION"</li>
+            <li data-index="4">"QUOTES"</li>
+            <li data-index="5">"WORK TOGETHER"</li>
           </ul>
         </div>
         <div class="full-width-column">
           <div id="content-0" class="content">
-            <p>
-              I'm currently living in San Francisco <s>New York</s>
-              <s>Los Angeles</s> <s>Austin</s> <s>Portland</s> <s>Honolulu</s>
-              <s>Troy</s> and working on something new ;).
-            </p>
-
-            <p>
-              I was previously at Pave, an HR software company helping companies
-              make compensation more transparent. Before Pave, I spent time
-              improving the mortgage experience at Blend, investing at Contrary
-              Capital, learning from extremely smart individuals at 8VC, working
-              on education access at Coursera, and refining glucose monitors at
-              Biomedtrics.
-            </p>
-
-            <p>
-              When I'm not working, you can find me signing up for new product
-              waitlists, running, playing poker, skiing (in the winter), and
-              surfing (in the summer).
-            </p>
+            <p>Currently living in San Francisco</p>
+            <p>Working on something new</p>
+            <p>Previously at Pave, Blend, Contrary Capital, 8VC, Coursera, and Biomedtrics</p>
+            <p>Interests: new product waitlists, running, poker, skiing, surfing</p>
           </div>
           <div id="content-1" class="content">
             <p>
@@ -405,14 +389,21 @@
           </div>
           <div id="content-5" class="content">
             <ul>
+              <li>Email: karthik [dot] s814 [at] gmail.com</a></li>
               <li><a href="https://twitter.com/ThisIsKarthik_">Twitter</a></li>
               <li>
                 <a href="https://linkedin.com/in/karthiksuresh814">LinkedIn</a>
               </li>
-              <li><a href="https://github.com/kool814">GitHub</a></li>
               <li>
                 <a href="https://www.instagram.com/ksuresh814">Instagram</a>
               </li>
+              <li>
+                <a href="https://www.strava.com/athletes/43178764">Strava</a>
+              </li>
+              <li>
+                <a href="https://open.spotify.com/user/suresh98?si=c6aa03963ade4240">Spotify</a>
+              </li>
+              <li><a href="https://github.com/kool814">GitHub</a></li>
             </ul>
           </div>
         </div>
@@ -442,6 +433,15 @@
         rightColumnItems.forEach((item) => item.classList.remove("active"));
         rightColumnItems[index].classList.add("active");
 
+        // Add 'active' class to the corresponding middle column item
+        middleColumnItems.forEach((item, i) => {
+          if (i === index) {
+            item.classList.add('active');
+          } else {
+            item.classList.remove('active');
+          }
+        });
+
         // Scroll to the full-width column on mobile
         if (window.innerWidth <= 768) {
           fullWidthColumn.scrollIntoView({ behavior: "smooth" });
@@ -458,6 +458,9 @@
         rightColumnItems.forEach((item) => item.classList.remove("active"));
         fullWidthColumn.style.backgroundColor = "";
         currentHoverColor = null;
+
+        // Remove 'active' class from all middle column items
+        middleColumnItems.forEach(item => item.classList.remove('active'));
 
         // Scroll back to the top on mobile
         if (window.innerWidth <= 768) {
@@ -487,5 +490,14 @@
 
       ksButton.addEventListener("click", hideFullWidthColumn);
     </script>
+    <!-- Add this just before the closing </body> tag -->
+    <footer class="off-white-footer">
+      <ul>
+        <li>"WEBSITE"</li>
+        <li>"2024"</li>
+        <li>"KARTHIK SURESH"</li>
+        <li>"SAN FRANCISCO"</li>
+      </ul>
+    </footer>
   </body>
 </html>
