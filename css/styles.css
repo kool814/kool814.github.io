@@ -1,43 +1,50 @@
 /* Global styles */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
 body {
   font-family: "Off-White", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 13.75px;
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   background-color: #ffffff;
   color: #000000;
-  overflow-x: hidden;
 }
 
 /* Grid layout */
 .grid-container {
-  flex: 1 0 auto;
+  flex: 1;
   display: flex;
   flex-direction: column;
+  height: calc(100vh - 50px); /* Subtract footer height */
+  overflow: hidden;
 }
 
 .content-wrapper {
-  display: flex;
   flex: 1;
-  width: 100%;
+  display: grid;
+  grid-template-columns: auto auto minmax(150px, 1fr) 5fr;
+  grid-auto-rows: min-content;
+  gap: 1rem;
+  padding: 0 1rem 2rem 1rem; /* Remove top padding, keep padding on other sides */
+  overflow-y: auto;
 }
 
 /* Column styles */
 .left-column,
 .middle-column,
 .right-column {
-  padding: 2rem 1rem;
+  padding: 0 1rem; /* Remove top and bottom padding */
 }
 
 .full-width-column {
-  flex: 1;
-  padding: 2rem 1rem;
+  overflow-y: auto;
   transition: background-color 0.3s ease;
-  display: flex;
-  flex-direction: column;
 }
 
 /* Typography */
@@ -163,7 +170,7 @@ td {
 #ks-button {
   cursor: pointer;
   transition: opacity 0.3s ease;
-  margin-top: -0.25rem;
+  margin-top: 0; /* Remove top margin */
   font-size: 0.9em;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -290,16 +297,21 @@ td {
 .off-white-footer {
   flex-shrink: 0;
   background-color: #ffffff;
-  padding: 10px 0;
   border-top: 1px solid #000000;
+  height: 50px;
+  display: flex;
+  align-items: center;
 }
 
 .off-white-footer ul {
   display: flex;
   justify-content: space-around;
+  align-items: center; /* Vertically center the list items */
   list-style-type: none;
   margin: 0;
   padding: 0;
+  width: 100%; /* Ensure the ul takes full width of the footer */
+  height: 100%; /* Make the ul full height of the footer */
 }
 
 .off-white-footer li {
@@ -311,29 +323,28 @@ td {
 /* Media query for mobile devices */
 @media screen and (max-width: 768px) {
   .off-white-footer {
-    position: static;
-    margin-top: 0;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
   }
 
   .off-white-footer ul {
     flex-wrap: wrap;
+    justify-content: center; /* Center items on mobile */
   }
 
   .off-white-footer li {
     flex-basis: 50%;
     text-align: center;
-    margin-bottom: 5px;
-  }
-
-  body {
-    padding-bottom: 0;
+    padding: 5px 0; /* Add some vertical padding for better spacing */
   }
 }
 
 /* Media query for smaller screens */
 @media screen and (max-width: 1024px) {
   .content-wrapper {
-    grid-template-columns: auto minmax(180px, 1fr) 3fr;
+    grid-template-columns: auto minmax(140px, 1fr) 3fr;
   }
 
   .left-column {
@@ -466,7 +477,7 @@ td {
 .left-column {
   display: flex;
   align-items: start;
-  padding-top: 2rem;
+  padding-top: 0; /* Remove top padding */
 }
 
 /* Update list styles for middle and right columns */
@@ -597,114 +608,22 @@ td {
 .left-column {
   display: flex;
   align-items: flex-start;
-  padding-top: 2rem;
+  padding-top: 2rem; /* Add top padding to align with other columns */
 }
 
 #ks-button {
   cursor: pointer;
   transition: opacity 0.3s ease;
-  margin-top: -0.25rem; /* Adjust this value to fine-tune the alignment */
+  margin-top: -0.25rem; /* Adjust to align with other columns */
 }
 
 /* Update the right-column styles */
 .right-column {
-  padding-top: 2rem; /* Match the padding-top of the left-column */
+  padding-top: 2rem; /* Add top padding to align with other columns */
 }
 
 .right-column ul {
-  margin-top: -0.25rem; /* Adjust this value to match the #ks-button margin-top */
-}
-
-/* Media query for mobile devices */
-@media screen and (max-width: 768px) {
-  #ks-button {
-    position: fixed;
-    top: 0.5rem;
-    left: 0.5rem;
-    z-index: 20;
-    font-size: 0.8em; /* Match the font size with other elements on mobile */
-    margin-top: 0;
-  }
-
-  .right-column {
-    padding-top: 1rem; /* Adjust padding for mobile */
-  }
-
-  .right-column ul {
-    margin-top: 0; /* Reset margin for mobile */
-  }
-}
-
-/* Media query for screens less than 1030px */
-@media screen and (max-width: 1029px) {
-  .content-wrapper {
-    display: grid;
-    grid-template-columns: 1fr 3fr;
-  }
-
-  .left-column,
-  .middle-column {
-    display: none !important; /* Use !important to ensure it's hidden */
-  }
-
-  .right-column {
-    padding-top: 2rem;
-  }
-
-  .right-column ul {
-    margin-top: 0;
-  }
-
-  .right-column li {
-    font-size: 0.8em;
-  }
-}
-
-/* Ensure the middle column stays hidden on smaller screens */
-@media screen and (max-width: 768px) {
-  .middle-column {
-    display: none !important;
-  }
-}
-
-/* Update the existing media queries */
-@media screen and (max-width: 768px) {
-  .content-wrapper {
-    display: flex;
-    flex-direction: row;
-    height: auto;
-    min-height: calc(100vh - 50px); /* Adjust for footer height */
-  }
-
-  .right-column,
-  .full-width-column {
-    height: auto;
-    min-height: calc(100vh - 50px); /* Adjust for footer height */
-    overflow-y: auto;
-  }
-
-  .right-column {
-    flex: 0 0 30%;
-    padding: 1rem 0.5rem;
-  }
-
-  .full-width-column {
-    flex: 1;
-    padding: 1rem;
-  }
-
-  .right-column li {
-    font-size: 0.8em;
-    padding-left: 10px;
-  }
-
-  .right-column li::before {
-    left: 0;
-  }
-
-  #ks-button {
-    display: none; /* Hide KS button on mobile */
-  }
+  margin-top: -0.25rem; /* Adjust to align items */
 }
 
 /* Update the full-width-column styles */
@@ -712,7 +631,31 @@ td {
   padding: 2rem 1rem;
   overflow-y: auto;
   transition: background-color 0.3s ease;
-  min-height: 100%;
+}
+
+/* Media query for mobile devices */
+@media screen and (max-width: 768px) {
+  .content-wrapper {
+    padding: 0;
+  }
+
+  .right-column {
+    padding: 1rem 0.5rem;
+  }
+
+  .full-width-column {
+    padding: 1rem;
+  }
+
+  .right-column ul,
+  .full-width-column .content {
+    margin-top: 0; /* Remove top margin on mobile */
+  }
+
+  .right-column li:first-child,
+  .full-width-column .content > *:first-child {
+    margin-top: 0; /* Remove top margin from first elements */
+  }
 }
 
 /* Update the off-white footer styles */
@@ -765,29 +708,38 @@ td {
 /* Media query for screens less than 1030px */
 @media screen and (max-width: 1029px) {
   .content-wrapper {
-    flex-direction: row;
+    grid-template-columns: 1fr 3fr;
   }
 
   .left-column,
   .middle-column {
-    display: none;
+    display: none !important; /* Use !important to ensure it's hidden */
   }
 
   .right-column {
-    flex: 0 0 30%;
-    padding: 2rem 1rem;
+    padding-top: 2rem;
   }
 
-  .full-width-column {
-    flex: 1;
+  .right-column ul {
+    margin-top: 0;
+  }
+
+  .right-column li {
+    font-size: 0.8em;
   }
 }
 
 /* Media query for mobile devices */
 @media screen and (max-width: 768px) {
   .content-wrapper {
+    display: flex;
     flex-direction: row;
     min-height: calc(100vh - 50px); /* Adjust for footer height */
+  }
+
+  .left-column,
+  .middle-column {
+    display: none !important; /* Ensure middle column is hidden on mobile */
   }
 
   .right-column,
@@ -801,6 +753,7 @@ td {
   }
 
   .full-width-column {
+    flex: 1;
     padding: 1rem;
   }
 
