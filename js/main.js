@@ -5,6 +5,9 @@ const sections = document.querySelectorAll('.content-section');
 const imagePreview = document.getElementById('image-preview');
 const mobileModal = document.getElementById('mobile-modal');
 const modalClose = document.getElementById('modal-close');
+const destinationInfo = document.getElementById('destination-info');
+const hamburgerMenu = document.getElementById('hamburger-menu');
+const navMenu = document.getElementById('nav-menu');
 
 // Text transformations for navigation
 const textTransformations = {
@@ -36,13 +39,44 @@ function getRandomDestination() {
 }
 
 
+// Hamburger menu toggle
+if (hamburgerMenu && navMenu) {
+    hamburgerMenu.addEventListener('click', (e) => {
+        e.stopPropagation();
+        hamburgerMenu.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    });
+
+    // Close menu when clicking on a nav link (mobile)
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if (window.innerWidth <= 768) {
+                hamburgerMenu.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+        });
+    });
+
+    // Close menu when clicking outside (mobile)
+    document.addEventListener('click', (e) => {
+        if (window.innerWidth <= 768 && 
+            navMenu.classList.contains('active') && 
+            !navMenu.contains(e.target) && 
+            !hamburgerMenu.contains(e.target)) {
+            hamburgerMenu.classList.remove('active');
+            navMenu.classList.remove('active');
+        }
+    });
+}
+
 // Navigation click handlers
 navLinks.forEach(link => {
     link.addEventListener('click', (e) => {
         e.preventDefault();
         const sectionId = link.getAttribute('data-section');
         const defaultText = link.getAttribute('data-default-text');
-        const transformedText = textTransformations[defaultText] || defaultText;
+        const isMobileDevice = window.innerWidth <= 768;
+        const transformedText = isMobileDevice ? defaultText : (textTransformations[defaultText] || defaultText);
 
         showSection(sectionId);
 
@@ -67,8 +101,16 @@ navLinks.forEach(link => {
             
             // Fade in the background image
             setTimeout(() => {
-                imagePreview.style.opacity = '0.3';
+                imagePreview.style.opacity = '0.2';
             }, 10);
+
+            // Show destination info
+            if (destinationInfo) {
+                const visitedText = randomData.visited ? ' (Visited)' : '';
+                const regionText = randomData.region ? `, ${randomData.region}` : '';
+                destinationInfo.textContent = `${randomDestination}${regionText}${visitedText}`;
+                destinationInfo.style.display = 'block';
+            }
         }
     });
 });
@@ -89,6 +131,17 @@ if (homeLink) {
         if (imagePreview) {
             imagePreview.style.display = 'none';
             imagePreview.style.opacity = '0';
+        }
+
+        // Hide destination info when returning home
+        if (destinationInfo) {
+            destinationInfo.style.display = 'none';
+        }
+
+        // Close mobile menu if open
+        if (window.innerWidth <= 768 && hamburgerMenu && navMenu) {
+            hamburgerMenu.classList.remove('active');
+            navMenu.classList.remove('active');
         }
     });
 }
@@ -126,9 +179,9 @@ const imageData = {
     'Alta': { url: 'https://images.unsplash.com/photo-1561296125-58be0361f402?w=1920', region: 'US', visited: false },
     'Palisades': { url: 'https://images.unsplash.com/photo-1631212022270-bf2810e1c914?w=1920', region: 'US', visited: true },
     //   'Taos': { url: 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=1920', region: 'US', visited: false },
-    'Copper Mountain': { url: 'https://images.unsplash.com/photo-1588383576412-45b821abb093?w=1920', region: 'US', visited: true },
+    'Copper Mountain': { url: 'https://images.unsplash.com/photo-1455643117162-50a162d8d58d?w=1920', region: 'US', visited: true },
     // Ski destinations - Italy & Austria (Dolomites, Alps)
-    'Valle Nevado': { url: 'https://images.unsplash.com/photo-1589164664921-a755b54f4847?w=1920', region: 'CL', visited: false },
+    'Valle Nevado': { url: 'https://images.unsplash.com/photo-1589496145106-2af25f7c8c1d?w=1920', region: 'CL', visited: false },
     'Portillo': { url: 'https://images.unsplash.com/photo-1700663852617-6ad9ff430710?w=1920', region: 'CL', visited: false },
     'Dolomiti Superski': { url: 'https://images.unsplash.com/photo-1579191399920-4e653acd6d04?w=1920', region: 'IT', visited: false },
     //   'St. Anton': { url: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920', region: 'AT' },
@@ -154,6 +207,7 @@ const imageData = {
     'Honolua Bay': { url: 'https://images.unsplash.com/photo-1556754007-93614fe5ae16?w=1920', region: 'US', visited: true },
     'Ocean Beach': { url: 'https://images.unsplash.com/photo-1603660262505-52bdac2c973c?w=1920', region: 'US', visited: true },
     'Trestles': { url: 'https://images.unsplash.com/photo-1626363372603-e69defc65621?w=1920', region: 'US', visited: false },
+    'Rockaway Beach': { url: 'https://images.unsplash.com/photo-1686566575197-5d45e6763c87?w=1920', region: 'US', visited: true },
     'Malibu': { url: 'https://images.unsplash.com/photo-1499898595565-f424ed1d075c?w=1920', region: 'US', visited: false },
     // Surf destinations - Costa Rica & Mexico
     // 'Santa Teresa': { url: 'https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=1920', region: 'CR', visited: false },
@@ -161,10 +215,11 @@ const imageData = {
     'Puerto Escondido': { url: 'https://images.unsplash.com/photo-1588623570373-24d3f3e3e3fb?w=1920', region: 'MX', visited: false },
     'Sayulita': { url: 'https://images.unsplash.com/photo-1583081425553-8368b299d01a?w=1920', region: 'MX', visited: false },
     // Surf destinations - French Polynesia, France, Australia
-    'Teahupo\'o': { url: 'https://images.unsplash.com/photo-1526813951498-5498cce49cdf?w=1920', region: 'PF', visited: false },
+    'Teahupo\'o': { url: 'https://images.unsplash.com/photo-1741454720414-7e23dab9961a?w=1920', region: 'PF', visited: false },
     // 'Hossegor': { url: 'https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=1920', region: 'FR', visited: false },
     // 'Biarritz': { url: 'https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=1920', region: 'FR', visited: false },
     'Snapper Rocks': { url: 'https://images.unsplash.com/photo-1686007577372-c7cadfeb64ee?w=1920', region: 'AU', visited: false },
+    'Pleasure Point': { url: 'https://images.unsplash.com/photo-1658989988950-40a0ca43e858?w=1920', region: 'US', visited: true },
     
     // Run / Hike destinations - South America (mountains, trails)
     'Patagonia': { url: 'https://images.unsplash.com/photo-1600211906168-fbc6df476b1c?w=1920', region: 'CL', visited: false },
@@ -178,11 +233,10 @@ const imageData = {
     // 'Trolltunga': { url: 'https://images.unsplash.com/photo-1464822759844-d150ad2996e3?w=1920', region: 'NO', visited: false },
     // 'Preikestolen': { url: 'https://images.unsplash.com/photo-1464822759844-d150ad2996e3?w=1920', region: 'NO', visited: false },
     'Faroe Islands': { url: 'https://images.unsplash.com/photo-1517751243320-0cc45ec82da7?w=1920', region: 'FO', visited: false },
-    'Iceland Laugavegur Trail': { url: 'https://images.unsplash.com/photo-1484604234936-eb54b8c10f6f?w=1920', region: 'IS', visited: false },
-    // Run / Hike destinations - Japan (mountains, trails)
+    'Aiguille du Midi': { url: 'https://images.unsplash.com/photo-1576933231610-f3068fa67591?w=1920', region: 'FR', visited: true },
+    'Laugavegur Trail': { url: 'https://images.unsplash.com/photo-1484604234936-eb54b8c10f6f?w=1920', region: 'IS', visited: false },
     // 'Kumano Kodo': { url: 'https://images.unsplash.com/photo-1464822759844-d150ad2996e3?w=1920', region: 'JP', visited: false },
     'Mount Fuji': { url: 'https://images.unsplash.com/photo-1578271887552-5ac3a72752bc?w=1920', region: 'JP', visited: true },
-    // Run / Hike destinations - USA (national parks, trails)
     // 'Grand Canyon Rim-to-Rim': { url: 'https://images.unsplash.com/photo-1464822759844-d150ad2996e3?w=1920', region: 'US', visited: false },
     'Zion Narrows': { url: 'https://images.unsplash.com/photo-1695870542685-242906f94997?w=1920', region: 'US', visited: false },
     // 'The Enchantments': { url: 'https://images.unsplash.com/photo-1464822759844-d150ad2996e3?w=1920', region: 'US', visited: false },
@@ -190,12 +244,12 @@ const imageData = {
     'Tahoe Rim': { url: 'https://images.unsplash.com/photo-1687309911603-db0280c9b959?w=1920', region: 'US', visited: true },
     // 'Timberline Trail / Mt. Hood': { url: 'https://images.unsplash.com/photo-1464822759844-d150ad2996e3?w=1920', region: 'US', visited: false },
     // 'John Muir Trail': { url: 'https://images.unsplash.com/photo-1464822759844-d150ad2996e3?w=1920', region: 'US', visited: false },
-    // Run / Hike destinations - Canada
     // 'West Coast Trail': { url: 'https://images.unsplash.com/photo-1464822759844-d150ad2996e3?w=1920', region: 'CA', visited: false },
     // 'Skyline Trail, Jasper': { url: 'https://images.unsplash.com/photo-1464822759844-d150ad2996e3?w=1920', region: 'CA', visited: false },
     'Annapurna': { url: 'https://images.unsplash.com/photo-1697621535550-1c671d4969c4?w=1920', region: 'NP', visited: false },
     'Everest Base Camp': { url: 'https://images.unsplash.com/photo-1737245610502-0b599c0f6c92?w=1920', region: 'NP', visited: false },
-    'Kilimanjaro': { url: 'https://images.unsplash.com/photo-1631646109206-4b5616964f84?w=1920', region: 'TZ', visited: false }
+    'Kilimanjaro': { url: 'https://images.unsplash.com/photo-1631646109206-4b5616964f84?w=1920', region: 'TZ', visited: false },
+    'Mt. Tam': { url: 'https://images.unsplash.com/photo-1487028463993-b7f901a8c2eb?w=1920', region: 'US', visited: true }
 };
 
 // Check if mobile
@@ -226,6 +280,11 @@ function setupDesktopHover(destinationWords) {
       `;
             imagePreview.style.display = 'block';
             imagePreview.style.opacity = '0';
+
+            // Hide destination info when hovering over words
+            if (destinationInfo) {
+                destinationInfo.style.display = 'none';
+            }
 
             // Fade in the full-page background
             setTimeout(() => {
@@ -268,18 +327,28 @@ function setupMobileTap(destinationWords) {
         });
     });
 
-    // Close modal handlers
-    modalClose.addEventListener('click', () => {
-        mobileModal.classList.remove('active');
-        document.body.style.overflow = '';
-    });
-
-    mobileModal.addEventListener('click', (e) => {
-        if (e.target === mobileModal) {
+    // Close modal handlers - only set up once
+    if (modalClose && !modalClose.hasAttribute('data-listener-attached')) {
+        modalClose.setAttribute('data-listener-attached', 'true');
+        modalClose.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
             mobileModal.classList.remove('active');
             document.body.style.overflow = '';
-        }
-    });
+        });
+    }
+
+    // Close when clicking outside modal content
+    if (!mobileModal.hasAttribute('data-listener-attached')) {
+        mobileModal.setAttribute('data-listener-attached', 'true');
+        mobileModal.addEventListener('click', (e) => {
+            // Only close if clicking directly on the modal background, not on modal-content
+            if (e.target === mobileModal) {
+                mobileModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    }
 }
 
 // Initialize based on screen size
