@@ -96,7 +96,7 @@ navLinks.forEach(link => {
             if (destinationInfo) {
                 const visitedText = randomData.visited ? ' (Visited)' : '';
                 const regionText = randomData.region ? `, ${randomData.region}` : '';
-                destinationInfo.textContent = `${randomDestination}${regionText}${visitedText}`;
+                destinationInfo.textContent = `📍 ${randomDestination}${regionText}${visitedText}`;
                 destinationInfo.style.display = 'block';
             }
         }
@@ -132,7 +132,7 @@ if (homeLink) {
 
 const imageData = {
     'Niseko': { url: 'https://images.unsplash.com/photo-1649359929082-df0ab123036c?w=1920', region: 'JP', visited: true },
-    'Hakuba': { url: 'https://images.unsplash.com/photo-1740641428021-2247c440d737?w=1920', region: 'JP', visited: false },
+    'Hakuba': { url: 'https://images.unsplash.com/photo-1612852098520-54dad0be642f?w=1920', region: 'JP', visited: false },
     'Kiroro': { url: 'https://images.unsplash.com/photo-1698977557313-f201fa9114cc?w=1920', region: 'JP', visited: true },
     'Chamonix': { url: 'https://images.unsplash.com/photo-1731663020994-b3dbcaf14ac7?w=1920', region: 'FR', visited: true },
     'Val d\'Isère': { url: 'https://images.unsplash.com/photo-1706480883949-797b813aab17?w=1920', region: 'FR', visited: false },
@@ -241,7 +241,8 @@ function setupMobileTap(destinationWords) {
             const modalText = mobileModal.querySelector('.modal-text');
 
             modalImageContainer.innerHTML = `<img src="${data.url}" alt="${destination}" />`;
-            modalText.textContent = destination;
+            const regionText = data.region ? `, ${data.region}` : '';
+            modalText.textContent = `${destination}${regionText}`;
 
             mobileModal.classList.add('active');
             document.body.style.overflow = 'hidden';
