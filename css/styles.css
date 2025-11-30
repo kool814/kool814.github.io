@@ -49,12 +49,32 @@ body {
 .nav-logo {
   font-size: 1.2em;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.15em;
   text-decoration: none;
   color: #111;
-  font-weight: 300;
+  font-weight: 400;
   cursor: pointer;
   transition: opacity 0.3s ease;
+  position: relative;
+  display: inline-block;
+}
+
+.nav-logo::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: currentColor;
+  border-radius: 50px;
+  transition: width 300ms ease;
+}
+
+.nav-logo:hover::after,
+.nav-logo:active::after,
+.nav-logo:focus::after {
+  width: 100%;
 }
 
 .nav-logo:hover {
@@ -73,44 +93,46 @@ body {
   text-decoration: none;
   color: #111;
   font-size: 0.9em;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.15em;
+  font-weight: 400;
+  text-transform: uppercase;
   position: relative;
-  transition: opacity 0.3s ease, color 0.3s ease, border-bottom 0.3s ease;
+  transition: opacity 0.3s ease, color 0.3s ease;
   padding: 0.5rem 0;
   cursor: pointer;
   display: inline-block;
-  border-bottom: 1px solid transparent;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: currentColor;
+  border-radius: 50px;
+  transition: width 300ms ease;
+}
+
+.nav-link:hover::after,
+.nav-link:active::after,
+.nav-link:focus::after {
+  width: 100%;
 }
 
 .nav-link:hover {
   opacity: 0.6;
-  border-bottom: 1px solid #111;
 }
 
 .nav-link.active {
   opacity: 1;
   color: #111;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .nav-link.active::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background-color: #111;
-  animation: underlineSlide 0.3s ease;
-}
-
-@keyframes underlineSlide {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
+  width: 100%;
 }
 .hamburger-menu {
   display: none; 
@@ -272,7 +294,7 @@ body {
 .destination-word {
   position: relative;
   cursor: pointer;
-  font-weight: 300;
+  font-weight: 600;
   letter-spacing: 0.01em;
   transition: opacity 0.3s ease;
   user-select: none;
@@ -478,7 +500,27 @@ body {
   max-width: 100%;
 }
 a[href]:not(.nav-link):not(.nav-logo) {
-  text-decoration: underline;
+  text-decoration: none;
+  position: relative;
+  display: inline-block;
+}
+
+a[href]:not(.nav-link):not(.nav-logo)::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: currentColor;
+  border-radius: 50px;
+  transition: width 300ms ease;
+}
+
+a[href]:not(.nav-link):not(.nav-logo):hover::after,
+a[href]:not(.nav-link):not(.nav-logo):active::after,
+a[href]:not(.nav-link):not(.nav-logo):focus::after {
+  width: 100%;
 }
 
 a[href]:not(.nav-link):not(.nav-logo):hover {
@@ -514,6 +556,26 @@ a[href]:not(.nav-link):not(.nav-logo):hover {
   text-decoration: none;
   transition: opacity 0.3s ease;
   font-weight: 500;
+  position: relative;
+  display: inline-block;
+}
+
+.section-content td a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: currentColor;
+  border-radius: 50px;
+  transition: width 300ms ease;
+}
+
+.section-content td a:hover::after,
+.section-content td a:active::after,
+.section-content td a:focus::after {
+  width: 100%;
 }
 
 .section-content td a:hover {
@@ -564,6 +626,26 @@ a[href]:not(.nav-link):not(.nav-logo):hover {
   transition: opacity 0.3s ease;
   font-size: 1em;
   font-weight: 500;
+  position: relative;
+  display: inline-block;
+}
+
+.contact-list a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: currentColor;
+  border-radius: 50px;
+  transition: width 300ms ease;
+}
+
+.contact-list a:hover::after,
+.contact-list a:active::after,
+.contact-list a:focus::after {
+  width: 100%;
 }
 
 .contact-list a:hover {
