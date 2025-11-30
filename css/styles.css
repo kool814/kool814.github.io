@@ -1,4 +1,4 @@
-/* Global Reset & Base Styles */
+
 * {
   margin: 0;
   padding: 0;
@@ -26,8 +26,6 @@ body {
   flex-direction: column;
   min-height: 100vh;
 }
-
-/* Top Navigation */
 .top-nav {
   position: fixed;
   top: 0;
@@ -114,10 +112,8 @@ body {
     transform: scaleX(1);
   }
 }
-
-/* Hamburger Menu */
 .hamburger-menu {
-  display: none; /* Hidden on desktop */
+  display: none; 
   flex-direction: column;
   justify-content: space-around;
   width: 24px;
@@ -149,8 +145,6 @@ body {
 .hamburger-menu.active span:nth-child(3) {
   transform: rotate(-45deg) translate(6px, -6px);
 }
-
-/* Main Content */
 .main-content {
   margin-top: 60px;
   flex: 1;
@@ -179,8 +173,6 @@ body {
     transform: translateY(0);
   }
 }
-
-/* Word Cloud Section */
 .word-cloud-container {
   width: 100%;
   min-height: calc(100vh - 200px);
@@ -261,9 +253,8 @@ body {
   white-space: normal;
   word-wrap: break-word;
   font-weight: 300;
-  /* Add slight variations to line height for asymmetry */
-  word-spacing: 0; /* Remove extra word spacing */
-  letter-spacing: 0; /* Remove extra letter spacing between words */
+  word-spacing: 0;
+  letter-spacing: 0; 
 }
 
 .word-cloud-section:nth-child(1) .word-cloud {
@@ -292,16 +283,12 @@ body {
   align-items: baseline;
   vertical-align: baseline;
   padding: 0.4em 0;
-  /* Create larger hover area - vertical padding only, no horizontal padding */
   margin: -0.4em 0;
-  /* Negative margin to offset vertical padding, no horizontal margin */
-  margin-right: 0.1em; /* Small space after word, before comma */
-  /* Consistent spacing - minimal margin */
+  margin-right: 0.1em; 
+  
 }
-
-/* Automatically add commas after each destination word */
 .destination-word::after {
-  content: ','; /* Comma without extra space */
+  content: ',';
   color: #111;
   margin-left: 0;
   margin-right: 0;
@@ -310,8 +297,6 @@ body {
   pointer-events: none;
   display: inline;
 }
-
-/* Last item in each word-cloud gets a period instead */
 .word-cloud .destination-word:last-child::after {
   content: '.';
 }
@@ -342,32 +327,23 @@ body {
   position: relative;
   top: 0;
   pointer-events: none;
-  /* Don't block hover events */
 }
-
-/* Comma spans removed - now using ::after pseudo-element */
 
 .word-text {
   position: relative;
   display: inline;
   font-weight: 400;
   letter-spacing: 0.01em;
-  /* Image texture will be applied via JavaScript for each destination */
   background-size: cover;
   background-position: center center;
   background-blend-mode: multiply;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  /* Static texture - no animation */
   mix-blend-mode: normal;
-  /* Vary font sizes for visual interest */
   font-size: 1em;
   pointer-events: none;
-  /* Don't block hover events on parent */
 }
-
-/* Strikethrough for visited destinations */
 .destination-word.visited .word-text::after {
   content: '';
   position: absolute;
@@ -379,8 +355,6 @@ body {
   transform: translateY(-50%);
   z-index: 1;
 }
-
-/* Vary sizes for different destinations to create hierarchy */
 .destination-word:nth-child(odd) .word-text {
   font-size: 0.95em;
 }
@@ -396,12 +370,6 @@ body {
 .destination-word:nth-child(5n) .word-text {
   font-size: 1.05em;
 }
-
-/* Animation removed - textures are now static */
-
-/* Word positioning is handled dynamically by JavaScript */
-
-/* Full-Page Background Image Preview (Desktop) */
 .image-preview {
   position: fixed;
   top: 0;
@@ -429,8 +397,6 @@ body {
   display: none;
 }
 
-
-/* Mobile Modal */
 .mobile-modal {
   position: fixed;
   top: 0;
@@ -468,7 +434,7 @@ body {
 }
 
 .modal-close {
-  display: none; /* Hide the close button */
+  display: none;
 }
 
 .modal-close:hover {
@@ -495,8 +461,6 @@ body {
   text-align: center;
   color: #111;
 }
-
-/* Section Content Styles */
 .section-content {
   max-width: 900px;
   margin: 0 auto;
@@ -513,8 +477,6 @@ body {
   text-align: left;
   max-width: 100%;
 }
-
-/* Underline all links with href (except nav links which have their own styling) */
 a[href]:not(.nav-link):not(.nav-logo) {
   text-decoration: underline;
 }
@@ -607,8 +569,6 @@ a[href]:not(.nav-link):not(.nav-logo):hover {
 .contact-list a:hover {
   opacity: 0.6;
 }
-
-/* Destination Info (Bottom Right) */
 .destination-info {
   position: fixed;
   bottom: 0.5rem;
@@ -620,8 +580,6 @@ a[href]:not(.nav-link):not(.nav-logo):hover {
   z-index: 1001;
   display: none;
 }
-
-/* Footer */
 .off-white-footer {
   flex-shrink: 0;
   background-color: #ffffff;
@@ -650,8 +608,6 @@ a[href]:not(.nav-link):not(.nav-logo):hover {
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
-
-/* Mobile Styles */
 @media screen and (max-width: 768px) {
   body {
     font-size: 18px;
@@ -682,7 +638,7 @@ a[href]:not(.nav-link):not(.nav-logo):hover {
   }
 
   .hamburger-menu {
-    display: flex; /* Show hamburger on mobile */
+    display: flex;
   }
 
   .nav-menu {
@@ -734,7 +690,7 @@ a[href]:not(.nav-link):not(.nav-logo):hover {
 
   .main-content {
     margin-top: 50px;
-    margin-bottom: 3rem; /* Reserve space at bottom for destination info on mobile */
+    margin-bottom: 3rem;
     margin-left: 0;
     padding: 1rem 1rem 1rem 0.5rem;
   }
@@ -775,7 +731,6 @@ a[href]:not(.nav-link):not(.nav-logo):hover {
     margin: -0.4em 0;
   }
 
-  /* Word cloud becomes single column on mobile */
   .word-cloud-container {
     min-height: auto;
     padding: 1rem 0;
@@ -848,7 +803,6 @@ a[href]:not(.nav-link):not(.nav-logo):hover {
 
   .word-text {
     font-size: 1em !important;
-    /* Keep texture on mobile but simpler */
     -webkit-text-fill-color: #111;
     background: linear-gradient(135deg, rgba(17, 17, 17, 0.95) 0%, rgba(34, 34, 34, 0.9) 50%, rgba(17, 17, 17, 0.95) 100%);
     -webkit-background-clip: text;
@@ -856,8 +810,6 @@ a[href]:not(.nav-link):not(.nav-logo):hover {
     -webkit-text-fill-color: transparent;
     animation: none;
   }
-
-  /* Comma styling handled by ::after pseudo-element */
 
   .section-content {
     padding: 1rem 0;
@@ -899,8 +851,6 @@ a[href]:not(.nav-link):not(.nav-logo):hover {
     font-size: 0.7em;
   }
 }
-
-/* Tablet Styles */
 @media screen and (min-width: 769px) and (max-width: 1024px) {
   .word-cloud {
     min-height: 250px;
