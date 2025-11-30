@@ -3,6 +3,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 html,
@@ -112,6 +113,41 @@ body {
   to {
     transform: scaleX(1);
   }
+}
+
+/* Hamburger Menu */
+.hamburger-menu {
+  display: none; /* Hidden on desktop */
+  flex-direction: column;
+  justify-content: space-around;
+  width: 24px;
+  height: 24px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1001;
+}
+
+.hamburger-menu span {
+  width: 100%;
+  height: 2px;
+  background-color: #111;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+.hamburger-menu.active span:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+
+.hamburger-menu.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-menu.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
 }
 
 /* Main Content */
@@ -226,6 +262,8 @@ body {
   word-wrap: break-word;
   font-weight: 300;
   /* Add slight variations to line height for asymmetry */
+  word-spacing: 0; /* Remove extra word spacing */
+  letter-spacing: 0; /* Remove extra letter spacing between words */
 }
 
 .word-cloud-section:nth-child(1) .word-cloud {
@@ -253,16 +291,43 @@ body {
   flex-direction: row;
   align-items: baseline;
   vertical-align: baseline;
-  padding: 0.4em 0.3em;
-  /* Create larger hover area - generous padding for easier hover detection */
+  padding: 0.4em 0;
+  /* Create larger hover area - vertical padding only, no horizontal padding */
   margin: -0.4em 0;
   /* Negative margin to offset vertical padding, no horizontal margin */
-  margin-right: 0;
-  /* Consistent spacing - no margin before comma */
+  margin-right: 0.1em; /* Small space after word, before comma */
+  /* Consistent spacing - minimal margin */
 }
 
-.destination-word:hover {
-  opacity: 0.8;
+/* Automatically add commas after each destination word */
+.destination-word::after {
+  content: ','; /* Comma without extra space */
+  color: #111;
+  margin-left: 0;
+  margin-right: 0;
+  font-weight: 300;
+  font-size: 1em;
+  pointer-events: none;
+  display: inline;
+}
+
+/* Last item in each word-cloud gets a period instead */
+.word-cloud .destination-word:last-child::after {
+  content: '.';
+}
+
+.destination-word:hover .word-text {
+  color: #fff;
+  -webkit-text-fill-color: #fff;
+  background-clip: border-box;
+  -webkit-background-clip: border-box;
+}
+
+.destination-word:hover .region-tag {
+  color: #fff;
+  -webkit-text-fill-color: #fff;
+  background-clip: border-box;
+  -webkit-background-clip: border-box;
 }
 
 .region-tag {
@@ -280,18 +345,11 @@ body {
   /* Don't block hover events */
 }
 
-.comma {
-  color: #111;
-  margin: 0;
-  margin-right: 0.2em;
-  font-weight: 300;
-  font-size: 1em;
-  display: inline-block;
-}
+/* Comma spans removed - now using ::after pseudo-element */
 
 .word-text {
   position: relative;
-  display: inline-block;
+  display: inline;
   font-weight: 400;
   letter-spacing: 0.01em;
   /* Image texture will be applied via JavaScript for each destination */
@@ -410,23 +468,7 @@ body {
 }
 
 .modal-close {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: rgba(255, 255, 255, 0.9);
-  border: none;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  font-size: 1.5rem;
-  cursor: pointer;
-  z-index: 10001;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
-  color: #111;
-  transition: background 0.3s ease;
+  display: none; /* Hide the close button */
 }
 
 .modal-close:hover {
@@ -459,13 +501,17 @@ body {
   max-width: 900px;
   margin: 0 auto;
   padding: 2rem 0;
+  text-align: left;
 }
 
 .section-content p {
   margin-bottom: 1.5rem;
   line-height: 1.7;
-  font-size: 1.1em;
-  font-weight: 400;
+  font-size: 1.25em;
+  font-weight: 500;
+  color: #222;
+  text-align: left;
+  max-width: 100%;
 }
 
 /* Underline all links with href (except nav links which have their own styling) */
@@ -488,22 +534,24 @@ a[href]:not(.nav-link):not(.nav-logo):hover {
   padding: 0.75rem;
   text-align: left;
   border-bottom: 1px solid #e0e0e0;
-  font-weight: 400;
-  font-size: 1.05em;
+  font-weight: 500;
+  font-size: 1.15em;
+  color: #222;
 }
 
 .section-content th {
-  font-weight: 400;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  font-size: 0.9em;
-  color: #666;
+  font-size: 1em;
+  color: #333;
 }
 
 .section-content td a {
-  color: #111;
+  color: #222;
   text-decoration: none;
   transition: opacity 0.3s ease;
+  font-weight: 500;
 }
 
 .section-content td a:hover {
@@ -514,6 +562,7 @@ a[href]:not(.nav-link):not(.nav-logo):hover {
 .contact-list {
   list-style: none;
   padding: 0;
+  text-align: left;
 }
 
 .quotes-list li,
@@ -522,8 +571,11 @@ a[href]:not(.nav-link):not(.nav-logo):hover {
   line-height: 1.7;
   padding-left: 1.5rem;
   position: relative;
-  font-size: 1.1em;
-  font-weight: 400;
+  font-size: 1.25em;
+  font-weight: 500;
+  color: #222;
+  text-align: left;
+  max-width: 100%;
 }
 
 .quotes-list li::before {
@@ -541,19 +593,32 @@ a[href]:not(.nav-link):not(.nav-logo):hover {
 }
 
 .contact-list li::before {
-  display: none;
-}
+    display: none;
+  }
 
 .contact-list a {
-  color: #111;
+  color: #222;
   text-decoration: none;
   transition: opacity 0.3s ease;
-  font-size: 1.1em;
-  font-weight: 400;
+  font-size: 1em;
+  font-weight: 500;
 }
 
 .contact-list a:hover {
   opacity: 0.6;
+}
+
+/* Destination Info (Bottom Right) */
+.destination-info {
+  position: fixed;
+  bottom: 0.5rem;
+  right: 1.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.85em;
+  color: #222;
+  font-weight: 400;
+  z-index: 1001;
+  display: none;
 }
 
 /* Footer */
@@ -593,28 +658,121 @@ a[href]:not(.nav-link):not(.nav-logo):hover {
   }
 
   .top-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     height: 50px;
-    padding: 0 1rem;
+    padding: 0.75rem 1rem;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e0e0e0;
+    z-index: 1000;
+  }
+
+  .nav-left {
+    flex: 0 0 auto;
   }
 
   .nav-logo {
     font-size: 1em;
+    flex-shrink: 0;
+  }
+
+  .hamburger-menu {
+    display: flex; /* Show hamburger on mobile */
   }
 
   .nav-menu {
-    gap: 0.75rem;
-    flex-wrap: wrap;
-    justify-content: flex-end;
+    position: fixed;
+    top: 50px;
+    left: 0;
+    right: 0;
+    background-color: #ffffff;
+    flex-direction: column;
+    gap: 0;
+    padding: 1rem 0;
+    border-bottom: 1px solid #e0e0e0;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
+    z-index: 999;
+  }
+
+  .nav-menu.active {
+    max-height: 400px;
+    opacity: 1;
+    padding: 1rem 0;
+  }
+
+  .nav-menu li {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .nav-menu li:last-child {
+    border-bottom: none;
   }
 
   .nav-link {
-    font-size: 0.7em;
+    font-size: 0.9em;
     white-space: nowrap;
+    padding: 0;
+    border-bottom: none;
+    display: block;
+    width: 100%;
+  }
+
+  .nav-link:hover {
+    border-bottom: none;
+    opacity: 0.6;
   }
 
   .main-content {
     margin-top: 50px;
-    padding: 1rem;
+    margin-bottom: 3rem; /* Reserve space at bottom for destination info on mobile */
+    margin-left: 0;
+    padding: 1rem 1rem 1rem 0.5rem;
+  }
+
+  .section-content {
+    font-size: 0.9em;
+    max-width: 100%;
+    margin: 0;
+    padding: 2rem 1rem 2rem 0.5rem;
+  }
+
+  .word-cloud-section {
+    padding-left: 0.5rem;
+  }
+
+  .word-clouds-list {
+    padding-left: 0.5rem;
+  }
+
+  .section-category {
+    left: 0.5rem;
+  }
+
+  .section-content p {
+    font-size: 1.1em;
+    line-height: 1.7;
+    font-weight: 500;
+    color: #222;
+  }
+
+  .word-cloud {
+    font-size: 2rem;
+  }
+
+  .destination-word {
+    font-size: 0.9em;
+    padding: 0.4em 0.3em;
+    margin: -0.4em 0;
   }
 
   /* Word cloud becomes single column on mobile */
@@ -679,6 +837,8 @@ a[href]:not(.nav-link):not(.nav-logo):hover {
     display: inline-flex;
     flex-direction: row;
     align-items: baseline;
+    padding: 0.4em 0.3em;
+    margin: -0.4em 0.1em;
   }
 
   .region-tag {
@@ -697,27 +857,30 @@ a[href]:not(.nav-link):not(.nav-logo):hover {
     animation: none;
   }
 
-  .comma {
-    margin: 0 0.05em;
-  }
+  /* Comma styling handled by ::after pseudo-element */
 
   .section-content {
     padding: 1rem 0;
   }
 
   .section-content table {
-    font-size: 0.85em;
+    font-size: 1em;
   }
 
   .section-content th,
   .section-content td {
     padding: 0.5rem;
+    font-size: 1em;
+    font-weight: 500;
+    color: #222;
   }
 
   .quotes-list li,
   .contact-list li {
     margin-bottom: 1.5rem;
-    font-size: 0.9em;
+    font-size: 1.1em;
+    font-weight: 500;
+    color: #222;
   }
 
   .off-white-footer {
