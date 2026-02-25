@@ -19,13 +19,69 @@ body {
   font-size: 13.75px;
   font-weight: 300;
   letter-spacing: 0.01em;
-  background-color: #fafafa;
+  background-color: #ffffff;
   color: #111;
   line-height: 1.5;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
+
+/* Minimal content styling for non-main pages (nav unchanged) */
+body.minimal-view .content-section.active .section-content {
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 24px 80px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+body.minimal-view .content-section.active .section-content .page-title {
+  font-size: 1.35rem;
+  margin-bottom: 1.25rem;
+}
+
+body.minimal-view .content-section.active .section-content p {
+  font-size: 1em;
+  margin-bottom: 1rem;
+}
+
+body.minimal-view .content-section.active .section-content th,
+body.minimal-view .content-section.active .section-content td {
+  font-size: 0.95em;
+  padding: 0.5rem 0.75rem;
+}
+
+body.minimal-view .content-section.active .section-content li {
+  font-size: 1em;
+}
+
+body.minimal-view .content-section.active .section-content p,
+body.minimal-view .content-section.active .section-content td,
+body.minimal-view .content-section.active .section-content li {
+  font-weight: 400;
+}
+
+body.minimal-view .content-section.active .section-content a[href] {
+  color: #06c;
+  text-decoration: underline;
+}
+
+body.minimal-view .content-section.active .section-content a[href]:hover {
+  opacity: 0.8;
+}
+
+body.minimal-view .content-section.active .section-content th {
+  font-size: 0.85em;
+}
+
+body.minimal-view .content-section.active .section-content th,
+body.minimal-view .content-section.active .section-content td {
+  border-bottom: 1px solid #eee;
+}
+
 .top-nav {
   position: fixed;
   top: 0;
@@ -383,7 +439,7 @@ body {
   z-index: 1;
   opacity: 0;
   transition: opacity 0.5s ease;
-  background-color: #fafafa;
+  background-color: #ffffff;
 }
 
 .image-preview img {
@@ -472,7 +528,7 @@ body {
   margin-bottom: 1.5rem;
   line-height: 1.7;
   font-size: 1.25em;
-  font-weight: 500;
+  font-weight: 400;
   color: #222;
   text-align: left;
   max-width: 100%;
@@ -496,13 +552,13 @@ a[href]:not(.nav-link):not(.nav-logo):hover {
   padding: 0.75rem;
   text-align: left;
   border-bottom: 1px solid #e0e0e0;
-  font-weight: 500;
+  font-weight: 400;
   font-size: 1.15em;
   color: #222;
 }
 
 .section-content th {
-  font-weight: 600;
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   font-size: 1em;
@@ -511,13 +567,43 @@ a[href]:not(.nav-link):not(.nav-logo):hover {
 
 .section-content td a {
   color: #222;
-  text-decoration: none;
+  text-decoration: underline;
   transition: opacity 0.3s ease;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .section-content td a:hover {
   opacity: 0.6;
+}
+
+.page-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #111;
+  margin-bottom: 1.5rem;
+  margin-top: 0;
+}
+
+.content-list {
+  list-style: disc;
+  padding-left: 1.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0;
+}
+
+.content-list li {
+  margin-bottom: 1.25rem;
+  line-height: 1.6;
+  font-weight: 400;
+  color: #222;
+}
+
+.content-list li a {
+  text-decoration: underline;
+}
+
+.content-list li a:hover {
+  opacity: 0.8;
 }
 
 .quotes-list,
@@ -534,7 +620,7 @@ a[href]:not(.nav-link):not(.nav-logo):hover {
   padding-left: 1.5rem;
   position: relative;
   font-size: 1.25em;
-  font-weight: 500;
+  font-weight: 400;
   color: #222;
   text-align: left;
   max-width: 100%;
@@ -560,10 +646,10 @@ a[href]:not(.nav-link):not(.nav-logo):hover {
 
 .contact-list a {
   color: #222;
-  text-decoration: none;
+  text-decoration: underline;
   transition: opacity 0.3s ease;
   font-size: 1em;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .contact-list a:hover {
@@ -717,7 +803,7 @@ a[href]:not(.nav-link):not(.nav-logo):hover {
   .section-content p {
     font-size: 1.1em;
     line-height: 1.7;
-    font-weight: 500;
+    font-weight: 400;
     color: #222;
   }
 
@@ -823,7 +909,7 @@ a[href]:not(.nav-link):not(.nav-logo):hover {
   .section-content td {
     padding: 0.5rem;
     font-size: 1em;
-    font-weight: 500;
+    font-weight: 400;
     color: #222;
   }
 
@@ -831,7 +917,7 @@ a[href]:not(.nav-link):not(.nav-logo):hover {
   .contact-list li {
     margin-bottom: 1.5rem;
     font-size: 1.1em;
-    font-weight: 500;
+    font-weight: 400;
     color: #222;
   }
 

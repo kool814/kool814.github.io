@@ -26,6 +26,12 @@ function showSection(sectionId) {
     if (targetSection) {
         targetSection.classList.add('active');
     }
+
+    if (sectionId === 'word-cloud-section') {
+        document.body.classList.remove('minimal-view');
+    } else {
+        document.body.classList.add('minimal-view');
+    }
 }
 
 function getRandomDestination() {
@@ -80,53 +86,38 @@ navLinks.forEach(link => {
         link.classList.add('active');
         link.textContent = transformedText;
 
-        const randomDestination = getRandomDestination();
-        const randomData = imageData[randomDestination];
-        if (randomData && imagePreview) {
-            imagePreview.innerHTML = `
-                <img src="${randomData.url}" alt="${randomDestination}" />
-            `;
-            imagePreview.style.display = 'block';
-            imagePreview.style.opacity = '0';
-
-            setTimeout(() => {
-                imagePreview.style.opacity = '0.2';
-            }, 10);
-
-            if (destinationInfo) {
-                const visitedText = randomData.visited ? ' (Visited)' : '';
-                const regionText = randomData.region ? `, ${randomData.region}` : '';
-                destinationInfo.textContent = `${randomDestination}${regionText}${visitedText}`;
-                destinationInfo.style.display = 'block';
-            }
-        }
-    });
-});
-
-if (homeLink) {
-    homeLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        showSection('word-cloud-section');
-
-        navLinks.forEach(l => {
-            l.classList.remove('active');
-            const defaultTxt = l.getAttribute('data-default-text');
-            l.textContent = defaultTxt;
-        });
-
         if (imagePreview) {
             imagePreview.style.display = 'none';
             imagePreview.style.opacity = '0';
         }
-
         if (destinationInfo) {
             destinationInfo.style.display = 'none';
         }
+    });
+});
 
-        if (window.innerWidth <= 768 && hamburgerMenu && navMenu) {
-            hamburgerMenu.classList.remove('active');
-            navMenu.classList.remove('active');
-        }
+function goHome() {
+    showSection('word-cloud-section');
+    navLinks.forEach(l => {
+        l.classList.remove('active');
+        const defaultTxt = l.getAttribute('data-default-text');
+        l.textContent = defaultTxt;
+    });
+    if (imagePreview) {
+        imagePreview.style.display = 'none';
+        imagePreview.style.opacity = '0';
+    }
+    if (destinationInfo) destinationInfo.style.display = 'none';
+    if (window.innerWidth <= 768 && hamburgerMenu && navMenu) {
+        hamburgerMenu.classList.remove('active');
+        navMenu.classList.remove('active');
+    }
+}
+
+if (homeLink) {
+    homeLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        goHome();
     });
 }
 
@@ -184,6 +175,15 @@ function isMobile() {
     return window.innerWidth <= 768;
 }
 
+function preloadImages() {
+    Object.values(imageData).forEach((data) => {
+        if (data && data.url) {
+            const img = new Image();
+            img.src = data.url;
+        }
+    });
+}
+
 let hideTimeout = null;
 
 function setupDesktopHover(destinationWords) {
@@ -215,7 +215,15 @@ function setupDesktopHover(destinationWords) {
             }, 10);
         });
 
-        word.addEventListener('mouseleave', () => {
+        word.addEventListener('mouseleave', (e) => {
+            const related = e.relatedTarget;
+            const movingToAnotherWord = related && typeof related.closest === 'function' &&
+                related.closest('.destination-word');
+
+            if (movingToAnotherWord) {
+                return;
+            }
+
             hideTimeout = setTimeout(() => {
                 imagePreview.style.opacity = '0';
                 setTimeout(() => {
@@ -315,6 +323,7 @@ function applyTextTextures() {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
+    preloadImages();
     applyTextTextures();
     initHoverPreview();
 });
