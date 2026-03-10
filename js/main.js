@@ -76,6 +76,8 @@ navLinks.forEach(link => {
         const transformedText = isMobileDevice ? defaultText : (textTransformations[defaultText] || defaultText);
 
         showSection(sectionId);
+        document.title = defaultTitle;
+        history.replaceState(null, '', window.location.pathname);
 
         navLinks.forEach(l => {
             l.classList.remove('active');
@@ -98,6 +100,7 @@ navLinks.forEach(link => {
 
 function goHome() {
     showSection('word-cloud-section');
+    document.title = defaultTitle;
     navLinks.forEach(l => {
         l.classList.remove('active');
         const defaultTxt = l.getAttribute('data-default-text');
@@ -118,8 +121,38 @@ if (homeLink) {
     homeLink.addEventListener('click', (e) => {
         e.preventDefault();
         goHome();
+        history.replaceState(null, '', window.location.pathname);
     });
 }
+
+// Handle hash links (blog posts) - show section and update title
+const pageTitles = {
+    'agency': 'On Agency — Karthik Suresh',
+    'nominative-determinism': 'Nominative Determinism — Karthik Suresh'
+};
+const defaultTitle = 'About Karthik Suresh';
+
+function showSectionFromHash() {
+    const hash = window.location.hash.slice(1);
+    if (hash && document.getElementById(hash)) {
+        showSection(hash);
+        document.title = pageTitles[hash] || defaultTitle;
+    }
+}
+
+document.addEventListener('click', (e) => {
+    const link = e.target.closest('a[href^="#"]');
+    if (link && link.getAttribute('href') !== '#') {
+        const id = link.getAttribute('href').slice(1);
+        if (document.getElementById(id)) {
+            e.preventDefault();
+            history.replaceState(null, '', '#' + id);
+            showSectionFromHash();
+        }
+    }
+});
+
+window.addEventListener('hashchange', showSectionFromHash);
 
 const imageData = {
     'Niseko': { url: 'https://images.unsplash.com/photo-1649359929082-df0ab123036c?w=1920', region: 'JP', visited: true },
@@ -323,6 +356,7 @@ function applyTextTextures() {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
+    showSectionFromHash();
     preloadImages();
     applyTextTextures();
     initHoverPreview();
