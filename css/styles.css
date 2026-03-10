@@ -43,9 +43,24 @@ body.minimal-view .content-section.active .section-content .page-title {
   margin-bottom: 1.25rem;
 }
 
+/* Blog: Nominative Determinism heading tweaks */
+body.minimal-view #nominative-determinism .page-title {
+  font-size: 1.6rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin-bottom: 1.75rem;
+}
+
 body.minimal-view .content-section.active .section-content p {
   font-size: 1em;
-  margin-bottom: 1rem;
+  margin-bottom: 1.2em;
+  line-height: 1.7;
+}
+
+body.minimal-view .content-section.active .section-content h3,
+body.minimal-view .content-section.active .section-content h4 {
+  margin-top: 2em;
+  margin-bottom: 0.5em;
 }
 
 body.minimal-view .content-section.active .section-content th,
@@ -80,6 +95,36 @@ body.minimal-view .content-section.active .section-content th {
 body.minimal-view .content-section.active .section-content th,
 body.minimal-view .content-section.active .section-content td {
   border-bottom: 1px solid #eee;
+}
+
+body.minimal-view .content-section.active .section-content blockquote {
+  margin: 1.5rem 0;
+  padding: 0 1.25rem;
+  border-left: 4px solid #ddd;
+  color: #444;
+  font-style: italic;
+}
+
+body.minimal-view .content-section.active .section-content hr {
+  margin: 2rem 0;
+  border: none;
+  border-top: 1px solid #e0e0e0;
+}
+
+body.minimal-view .content-section.active .section-content .video-embed {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  margin: 1.5rem 0;
+}
+
+body.minimal-view .content-section.active .section-content .video-embed iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .top-nav {
