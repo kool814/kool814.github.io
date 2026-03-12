@@ -132,13 +132,12 @@ body.minimal-view .content-section.active .section-content .video-embed iframe {
   top: 0;
   left: 0;
   right: 0;
-  height: 60px;
+  height: 64px;
   background-color: #ffffff;
-  border-bottom: 1px solid #e0e0e0;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 2rem;
+  padding: 0 2.5rem;
   z-index: 1000;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
@@ -150,9 +149,9 @@ body.minimal-view .content-section.active .section-content .video-embed iframe {
 .nav-logo {
   font-size: 1.2em;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.18em;
   text-decoration: none;
-  color: #111;
+  color: #333;
   font-weight: 300;
   cursor: pointer;
   transition: opacity 0.3s ease;
@@ -165,16 +164,17 @@ body.minimal-view .content-section.active .section-content .video-embed iframe {
 .nav-menu {
   display: flex;
   list-style: none;
-  gap: 2rem;
+  gap: 2.75rem;
   margin: 0;
   padding: 0;
 }
 
 .nav-link {
   text-decoration: none;
-  color: #111;
-  font-size: 0.9em;
-  letter-spacing: 0.05em;
+  color: #444;
+  font-size: 0.95em;
+  font-weight: 300;
+  letter-spacing: 0.1em;
   position: relative;
   transition: opacity 0.3s ease, color 0.3s ease, border-bottom 0.3s ease;
   padding: 0.5rem 0;
@@ -184,8 +184,9 @@ body.minimal-view .content-section.active .section-content .video-embed iframe {
 }
 
 .nav-link:hover {
-  opacity: 0.6;
-  border-bottom: 1px solid #111;
+  opacity: 1;
+  color: #111;
+  border-bottom: 1px solid #999;
 }
 
 .nav-link.active {
@@ -407,6 +408,8 @@ body.minimal-view .content-section.active .section-content .video-embed iframe {
   -webkit-text-fill-color: #fff;
   background-clip: border-box;
   -webkit-background-clip: border-box;
+  background-color: rgba(0, 0, 0, 0.45);
+  background-blend-mode: darken;
 }
 
 .destination-word:hover .region-tag {
@@ -435,9 +438,10 @@ body.minimal-view .content-section.active .section-content .video-embed iframe {
   display: inline;
   font-weight: 400;
   letter-spacing: 0.01em;
+  background-color: #111;
   background-size: cover;
   background-position: center center;
-  background-blend-mode: multiply;
+  background-blend-mode: normal;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -755,7 +759,6 @@ a[href]:not(.nav-link):not(.nav-logo):hover {
     align-items: center;
     justify-content: space-between;
     background-color: #ffffff;
-    border-bottom: 1px solid #e0e0e0;
     z-index: 1000;
   }
 
@@ -781,7 +784,6 @@ a[href]:not(.nav-link):not(.nav-logo):hover {
     flex-direction: column;
     gap: 0;
     padding: 1rem 0;
-    border-bottom: 1px solid #e0e0e0;
     max-height: 0;
     overflow: hidden;
     opacity: 0;
@@ -798,7 +800,7 @@ a[href]:not(.nav-link):not(.nav-logo):hover {
   .nav-menu li {
     width: 100%;
     padding: 0.75rem 1rem;
-    border-bottom: 1px solid #f0f0f0;
+    border-bottom: 1px solid #f5f5f5;
   }
 
   .nav-menu li:last-child {
