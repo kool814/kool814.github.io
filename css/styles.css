@@ -407,6 +407,8 @@ body.minimal-view .content-section.active .section-content .video-embed iframe {
   -webkit-text-fill-color: #fff;
   background-clip: border-box;
   -webkit-background-clip: border-box;
+  background-color: rgba(0, 0, 0, 0.35);
+  background-blend-mode: darken;
 }
 
 .destination-word:hover .region-tag {
@@ -435,9 +437,10 @@ body.minimal-view .content-section.active .section-content .video-embed iframe {
   display: inline;
   font-weight: 400;
   letter-spacing: 0.01em;
+  background-color: #111;
   background-size: cover;
   background-position: center center;
-  background-blend-mode: multiply;
+  background-blend-mode: normal;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;

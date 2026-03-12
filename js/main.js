@@ -208,13 +208,44 @@ function isMobile() {
     return window.innerWidth <= 768;
 }
 
+function optimizeUrl(url, width) {
+    let optimized = url.replace(/([?&])w=\d+/, '$1w=' + width);
+    if (url.includes('images.unsplash.com') && !url.includes('fm=')) {
+        optimized += '&fm=webp&q=90';
+    }
+    return optimized;
+}
+
+function thumbnailUrl(url) {
+    return optimizeUrl(url, 400);
+}
+
+function previewUrl(url) {
+    return optimizeUrl(url, 1280);
+}
+
 function preloadImages() {
     Object.values(imageData).forEach((data) => {
         if (data && data.url) {
             const img = new Image();
-            img.src = data.url;
+            img.src = thumbnailUrl(data.url);
         }
     });
+
+    const preloadFull = () => {
+        Object.values(imageData).forEach((data) => {
+            if (data && data.url) {
+                const img = new Image();
+                img.src = previewUrl(data.url);
+            }
+        });
+    };
+
+    if ('requestIdleCallback' in window) {
+        requestIdleCallback(preloadFull);
+    } else {
+        setTimeout(preloadFull, 2000);
+    }
 }
 
 let hideTimeout = null;
@@ -233,7 +264,7 @@ function setupDesktopHover(destinationWords) {
             }
 
             imagePreview.innerHTML = `
-        <img src="${data.url}" alt="${destination}" />
+        <img src="${previewUrl(data.url)}" alt="${destination}" />
         <div class="preview-text">${destination}</div>
       `;
             imagePreview.style.display = 'block';
@@ -281,7 +312,7 @@ function setupMobileTap(destinationWords) {
             const modalImageContainer = mobileModal.querySelector('.modal-image-container');
             const modalText = mobileModal.querySelector('.modal-text');
 
-            modalImageContainer.innerHTML = `<img src="${data.url}" alt="${destination}" />`;
+            modalImageContainer.innerHTML = `<img src="${previewUrl(data.url)}" alt="${destination}" />`;
             modalText.textContent = destination;
 
             mobileModal.classList.add('active');
@@ -337,10 +368,10 @@ function applyTextTextures() {
         const wordText = word.querySelector('.word-text');
 
         if (data && data.url && wordText) {
-            wordText.style.backgroundImage = `url('${data.url}'), linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65))`;
-            wordText.style.backgroundSize = 'cover, 100% 100%';
-            wordText.style.backgroundPosition = 'center center, 0% 0%';
-            wordText.style.backgroundRepeat = 'no-repeat, no-repeat';
+            wordText.style.backgroundImage = `url('${thumbnailUrl(data.url)}')`;
+            wordText.style.backgroundSize = 'cover';
+            wordText.style.backgroundPosition = 'center center';
+            wordText.style.backgroundRepeat = 'no-repeat';
 
             if (data.visited === true) {
                 word.classList.add('visited');
