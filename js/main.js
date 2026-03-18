@@ -221,7 +221,7 @@ function thumbnailUrl(url) {
 }
 
 function previewUrl(url) {
-    return optimizeUrl(url, 1280);
+    return optimizeUrl(url, 1920);
 }
 
 function preloadImages() {
@@ -232,20 +232,13 @@ function preloadImages() {
         }
     });
 
-    const preloadFull = () => {
-        Object.values(imageData).forEach((data) => {
-            if (data && data.url) {
-                const img = new Image();
-                img.src = previewUrl(data.url);
-            }
-        });
+    const preloadedPreviews = new Set();
+    window._preloadPreview = (url) => {
+        if (!url || preloadedPreviews.has(url)) return;
+        preloadedPreviews.add(url);
+        const img = new Image();
+        img.src = previewUrl(url);
     };
-
-    if ('requestIdleCallback' in window) {
-        requestIdleCallback(preloadFull);
-    } else {
-        setTimeout(preloadFull, 2000);
-    }
 }
 
 let hideTimeout = null;
@@ -262,6 +255,8 @@ function setupDesktopHover(destinationWords) {
                 clearTimeout(hideTimeout);
                 hideTimeout = null;
             }
+
+            if (window._preloadPreview) window._preloadPreview(data.url);
 
             imagePreview.innerHTML = `
         <img src="${previewUrl(data.url)}" alt="${destination}" />
