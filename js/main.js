@@ -242,6 +242,9 @@ function preloadImages() {
 }
 
 let hideTimeout = null;
+// Incremented on every hover/leave so a slow-loading image can't reveal itself
+// after the pointer has already moved to another word or left the cloud.
+let previewToken = 0;
 
 function setupDesktopHover(destinationWords) {
     destinationWords.forEach(word => {
@@ -249,6 +252,11 @@ function setupDesktopHover(destinationWords) {
         const data = imageData[destination];
 
         if (!data) return;
+
+        // initHoverPreview re-runs on every (debounced) resize; bind once per
+        // word so listeners don't stack across resizes.
+        if (word.hasAttribute('data-desktop-hover-bound')) return;
+        word.setAttribute('data-desktop-hover-bound', 'true');
 
         word.addEventListener('mouseenter', (e) => {
             if (hideTimeout) {
@@ -258,20 +266,46 @@ function setupDesktopHover(destinationWords) {
 
             if (window._preloadPreview) window._preloadPreview(data.url);
 
-            imagePreview.innerHTML = `
-        <img src="${previewUrl(data.url)}" alt="${destination}" />
-        <div class="preview-text">${destination}</div>
-      `;
-            imagePreview.style.display = 'block';
-            imagePreview.style.opacity = '0';
+            // Invalidate any in-flight reveal from a previously hovered word.
+            const token = ++previewToken;
+            const src = previewUrl(data.url);
 
             if (destinationInfo) {
                 destinationInfo.style.display = 'none';
             }
 
-            setTimeout(() => {
-                imagePreview.style.opacity = '1';
-            }, 10);
+            const reveal = () => {
+                // Bail if the pointer has since moved on (another word or left).
+                if (token !== previewToken) return;
+
+                imagePreview.innerHTML = `
+        <img src="${src}" alt="${destination}" />
+        <div class="preview-text">${destination}</div>
+      `;
+                imagePreview.style.display = 'block';
+
+                // Flip opacity on the next frame so the just-set content is
+                // committed before the fade transition runs.
+                requestAnimationFrame(() => {
+                    if (token !== previewToken) return;
+                    imagePreview.style.opacity = '1';
+                });
+            };
+
+            // Reveal only once the full-size image is actually decoded, so the
+            // white preview backdrop never fades in ahead of the photo. The
+            // previous word's image stays on screen until the new one is ready.
+            const loader = new Image();
+            let revealed = false;
+            const onReady = () => {
+                if (revealed) return;
+                revealed = true;
+                reveal();
+            };
+            loader.onload = onReady;
+            loader.onerror = onReady; // fail open rather than hang on a dead URL
+            loader.src = src;
+            if (loader.complete) onReady(); // already cached — show immediately
         });
 
         word.addEventListener('mouseleave', (e) => {
@@ -282,6 +316,10 @@ function setupDesktopHover(destinationWords) {
             if (movingToAnotherWord) {
                 return;
             }
+
+            // Cancel any pending reveal so a late-loading image can't pop in
+            // after the pointer has already left the word cloud.
+            previewToken++;
 
             hideTimeout = setTimeout(() => {
                 imagePreview.style.opacity = '0';
@@ -300,6 +338,10 @@ function setupMobileTap(destinationWords) {
         const data = imageData[destination];
 
         if (!data) return;
+
+        // Bind once per word — initHoverPreview re-runs on every resize.
+        if (word.hasAttribute('data-mobile-tap-bound')) return;
+        word.setAttribute('data-mobile-tap-bound', 'true');
 
         word.addEventListener('click', (e) => {
             e.preventDefault();
@@ -334,6 +376,36 @@ function setupMobileTap(destinationWords) {
             }
         });
     }
+}
+
+// Warm the full-size preview cache during idle time so the first hover over a
+// word shows its image instantly instead of waiting on a fresh download.
+// Desktop only — on mobile the previews open via tap and pre-fetching 40+
+// full-res images would waste cellular data.
+function preloadPreviewsWhenIdle() {
+    if (isMobile() || !window._preloadPreview) return;
+
+    // Respect Data Saver and very slow (2g/slow-2g) connections — skip the bulk
+    // warm so we don't force ~40+ full-res downloads the visitor may never need.
+    const conn = navigator.connection;
+    if (conn && (conn.saveData || /2g/.test(conn.effectiveType || ''))) return;
+
+    const urls = Object.values(imageData)
+        .map(data => data && data.url)
+        .filter(Boolean);
+
+    const schedule = window.requestIdleCallback
+        ? (cb) => window.requestIdleCallback(cb, { timeout: 2000 })
+        : (cb) => setTimeout(cb, 200);
+
+    let i = 0;
+    const step = () => {
+        if (i >= urls.length) return;
+        window._preloadPreview(urls[i]);
+        i++;
+        schedule(step);
+    };
+    schedule(step);
 }
 
 function initHoverPreview() {
@@ -390,4 +462,5 @@ window.addEventListener('DOMContentLoaded', () => {
 
 window.addEventListener('load', () => {
     applyTextTextures();
+    preloadPreviewsWhenIdle();
 });
