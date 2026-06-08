@@ -160,12 +160,12 @@ const imageData = {
     'Kiroro': { url: 'https://images.unsplash.com/photo-1698977557313-f201fa9114cc?w=1920', region: 'JP', visited: true },
     'Chamonix': { url: 'https://images.unsplash.com/photo-1731663020994-b3dbcaf14ac7?w=1920', region: 'FR', visited: true },
     'Val d\'Isère': { url: 'https://images.unsplash.com/photo-1706480883949-797b813aab17?w=1920', region: 'FR', visited: false },
-    'Les Grands Montets': { url: 'https://mountainsrivers.com/wp-content/uploads/2014/03/dscn5314.jpg?w=1920', region: 'FR', visited: true },
+    'Les Grands Montets': { url: 'https://images.unsplash.com/photo-1644756435038-78987714d88c?w=1920', region: 'FR', visited: true },
     'Zermatt': { url: 'https://images.unsplash.com/photo-1708598660454-4011df6397f0?w=1920', region: 'CH', visited: false },
     'St. Moritz': { url: 'https://images.unsplash.com/photo-1547980562-3c008cd4b769?w=1920', region: 'CH', visited: false },
     'Whistler': { url: 'https://images.unsplash.com/photo-1531870884530-8c9e3e3bfa80?w=1920', region: 'CA', visited: false },
     'Jackson Hole': { url: 'https://images.unsplash.com/photo-1595131264251-63b7cf3b8564?w=1920', region: 'US', visited: false },
-    'Kirkwood': { url: 'https://scene7.vailresorts.com/is/image/vailresorts/20230101_KW_Baggett_001:Medium-Hero?w=1920', region: 'US', visited: true },
+    'Kirkwood': { url: 'https://images.unsplash.com/photo-1639094455050-c966c74d8459?w=1920', region: 'US', visited: true },
     'Alta': { url: 'https://images.unsplash.com/photo-1561296125-58be0361f402?w=1920', region: 'US', visited: false },
     'Palisades': { url: 'https://images.unsplash.com/photo-1631212022270-bf2810e1c914?w=1920', region: 'US', visited: true },
     'Copper Mountain': { url: 'https://images.unsplash.com/photo-1455643117162-50a162d8d58d?w=1920', region: 'US', visited: true },
@@ -221,6 +221,16 @@ function thumbnailUrl(url) {
 }
 
 function previewUrl(url) {
+    // The preview fills the viewport with object-fit: cover, so on high-DPI
+    // displays a flat 1920px source gets upscaled and looks grainy. Unsplash
+    // can serve larger sizes on demand, so request enough pixels to cover the
+    // viewport at the device's pixel ratio (capped at 3840). Other hosts can't
+    // serve more than their uploaded size, so keep the original 1920 request.
+    if (url.includes('images.unsplash.com')) {
+        const dpr = window.devicePixelRatio || 1;
+        const target = Math.round(Math.max(window.innerWidth, window.innerHeight) * dpr);
+        return optimizeUrl(url, Math.min(Math.max(target, 1920), 3840));
+    }
     return optimizeUrl(url, 1920);
 }
 
