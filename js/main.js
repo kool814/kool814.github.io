@@ -210,8 +210,12 @@ function isMobile() {
 
 function optimizeUrl(url, width) {
     let optimized = url.replace(/([?&])w=\d+/, '$1w=' + width);
-    if (url.includes('images.unsplash.com') && !url.includes('fm=')) {
-        optimized += '&fm=webp&q=90';
+    if (url.includes('images.unsplash.com') && !url.includes('auto=')) {
+        // Let Unsplash's imgix CDN pick the best format per the browser's
+        // Accept header (AVIF where supported, else WebP) and compress. AVIF is
+        // ~20-40% smaller than WebP at q=80, which loads visibly faster with no
+        // perceptible quality loss on a full-bleed background.
+        optimized += '&auto=format,compress&q=80';
     }
     return optimized;
 }
@@ -224,14 +228,32 @@ function previewUrl(url) {
     // The preview fills the viewport with object-fit: cover, so on high-DPI
     // displays a flat 1920px source gets upscaled and looks grainy. Unsplash
     // can serve larger sizes on demand, so request enough pixels to cover the
-    // viewport at the device's pixel ratio (capped at 3840). Other hosts can't
-    // serve more than their uploaded size, so keep the original 1920 request.
+    // viewport at the device's pixel ratio. Capped at 2560 — beyond that the
+    // extra pixels aren't perceptible on a full-bleed background but cost real
+    // download time, so this keeps the high-res warm-up fast.
     if (url.includes('images.unsplash.com')) {
         const dpr = window.devicePixelRatio || 1;
         const target = Math.round(Math.max(window.innerWidth, window.innerHeight) * dpr);
-        return optimizeUrl(url, Math.min(Math.max(target, 1920), 3840));
+        return optimizeUrl(url, Math.min(Math.max(target, 1920), 2560));
     }
     return optimizeUrl(url, 1920);
+}
+
+const preloadedPreviews = new Set();
+
+// Fetch (and cache) a word's full-size preview. Deduped so the warm-up pool
+// and a hover never request the same image twice. highPriority hints the
+// browser to fetch it ahead of lower-priority work.
+function preloadPreview(url, highPriority) {
+    if (!url || preloadedPreviews.has(url)) return Promise.resolve();
+    preloadedPreviews.add(url);
+    return new Promise((resolve) => {
+        const img = new Image();
+        if (highPriority && 'fetchPriority' in img) img.fetchPriority = 'high';
+        img.onload = resolve;
+        img.onerror = resolve; // resolve either way so the pool keeps draining
+        img.src = previewUrl(url);
+    });
 }
 
 function preloadImages() {
@@ -242,13 +264,34 @@ function preloadImages() {
         }
     });
 
-    const preloadedPreviews = new Set();
-    window._preloadPreview = (url) => {
-        if (!url || preloadedPreviews.has(url)) return;
-        preloadedPreviews.add(url);
-        const img = new Image();
-        img.src = previewUrl(url);
+    window._preloadPreview = (url) => preloadPreview(url, false);
+}
+
+// Warm the full-size preview cache eagerly and in parallel as soon as the DOM
+// is ready, so the first hover shows a genuine high-res image with no wait and
+// no low-res placeholder. Runs a bounded pool (not all 47 at once) so the
+// fetches don't starve each other or the rest of page load.
+// Desktop only — on mobile previews open via tap and pre-fetching 40+ full-res
+// images would waste cellular data.
+function warmPreviews() {
+    if (isMobile()) return;
+
+    // Respect Data Saver and very slow (2g/slow-2g) connections — skip the bulk
+    // warm so we don't force ~40+ full-res downloads the visitor may never need.
+    const conn = navigator.connection;
+    if (conn && (conn.saveData || /2g/.test(conn.effectiveType || ''))) return;
+
+    const urls = Object.values(imageData)
+        .map(data => data && data.url)
+        .filter(Boolean);
+
+    const MAX_PARALLEL = 6;
+    let i = 0;
+    const pump = () => {
+        if (i >= urls.length) return;
+        preloadPreview(urls[i++], true).then(pump);
     };
+    for (let k = 0; k < MAX_PARALLEL; k++) pump();
 }
 
 let hideTimeout = null;
@@ -278,20 +321,28 @@ function setupDesktopHover(destinationWords) {
 
             // Invalidate any in-flight reveal from a previously hovered word.
             const token = ++previewToken;
-            const src = previewUrl(data.url);
+            const fullSrc = previewUrl(data.url);
 
             if (destinationInfo) {
                 destinationInfo.style.display = 'none';
             }
 
+            // Reveal the full-res image only once it's decoded, so the visitor
+            // never sees a low-res frame. The previews are warmed in parallel at
+            // page load (warmPreviews), so this is normally already cached and
+            // shows with no wait; on a rare cold hover the previous word's photo
+            // stays on screen until the new one is ready rather than flashing.
             const reveal = () => {
-                // Bail if the pointer has since moved on (another word or left).
                 if (token !== previewToken) return;
 
-                imagePreview.innerHTML = `
-        <img src="${src}" alt="${destination}" />
-        <div class="preview-text">${destination}</div>
-      `;
+                let img = imagePreview.querySelector('img');
+                if (!img) {
+                    imagePreview.innerHTML = '<img alt=""><div class="preview-text"></div>';
+                    img = imagePreview.querySelector('img');
+                }
+                img.alt = destination;
+                img.src = fullSrc;
+                imagePreview.querySelector('.preview-text').textContent = destination;
                 imagePreview.style.display = 'block';
 
                 // Flip opacity on the next frame so the just-set content is
@@ -302,9 +353,6 @@ function setupDesktopHover(destinationWords) {
                 });
             };
 
-            // Reveal only once the full-size image is actually decoded, so the
-            // white preview backdrop never fades in ahead of the photo. The
-            // previous word's image stays on screen until the new one is ready.
             const loader = new Image();
             let revealed = false;
             const onReady = () => {
@@ -314,7 +362,7 @@ function setupDesktopHover(destinationWords) {
             };
             loader.onload = onReady;
             loader.onerror = onReady; // fail open rather than hang on a dead URL
-            loader.src = src;
+            loader.src = fullSrc;
             if (loader.complete) onReady(); // already cached — show immediately
         });
 
@@ -331,13 +379,14 @@ function setupDesktopHover(destinationWords) {
             // after the pointer has already left the word cloud.
             previewToken++;
 
+            // Snap straight back to the white page instead of fading out. The
+            // short timeout only bridges the gap between adjacent words (a new
+            // mouseenter cancels it), so hopping word-to-word stays seamless.
             hideTimeout = setTimeout(() => {
+                imagePreview.style.display = 'none';
                 imagePreview.style.opacity = '0';
-                setTimeout(() => {
-                    imagePreview.style.display = 'none';
-                }, 250);
                 hideTimeout = null;
-            }, 100);
+            }, 60);
         });
     });
 }
@@ -388,36 +437,6 @@ function setupMobileTap(destinationWords) {
     }
 }
 
-// Warm the full-size preview cache during idle time so the first hover over a
-// word shows its image instantly instead of waiting on a fresh download.
-// Desktop only — on mobile the previews open via tap and pre-fetching 40+
-// full-res images would waste cellular data.
-function preloadPreviewsWhenIdle() {
-    if (isMobile() || !window._preloadPreview) return;
-
-    // Respect Data Saver and very slow (2g/slow-2g) connections — skip the bulk
-    // warm so we don't force ~40+ full-res downloads the visitor may never need.
-    const conn = navigator.connection;
-    if (conn && (conn.saveData || /2g/.test(conn.effectiveType || ''))) return;
-
-    const urls = Object.values(imageData)
-        .map(data => data && data.url)
-        .filter(Boolean);
-
-    const schedule = window.requestIdleCallback
-        ? (cb) => window.requestIdleCallback(cb, { timeout: 2000 })
-        : (cb) => setTimeout(cb, 200);
-
-    let i = 0;
-    const step = () => {
-        if (i >= urls.length) return;
-        window._preloadPreview(urls[i]);
-        i++;
-        schedule(step);
-    };
-    schedule(step);
-}
-
 function initHoverPreview() {
     const destinationWords = document.querySelectorAll('.destination-word');
 
@@ -466,11 +485,11 @@ function applyTextTextures() {
 window.addEventListener('DOMContentLoaded', () => {
     showSectionFromHash();
     preloadImages();
+    warmPreviews();
     applyTextTextures();
     initHoverPreview();
 });
 
 window.addEventListener('load', () => {
     applyTextTextures();
-    preloadPreviewsWhenIdle();
 });
